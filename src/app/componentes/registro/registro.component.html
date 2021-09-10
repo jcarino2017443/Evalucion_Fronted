@@ -1,0 +1,80 @@
+<br/>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-7 col-lg-6">
+            <form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputText1">Nombre</label>
+                            <input type="text" class="form-control" id="exampleInputText1" aria-describedby="nameHelp" placeholder="Nombre"
+                            name="name" #name="ngModel" [(ngModel)]="usuarioModel.name">
+                            <small id="nameHelp" class="form-text text-muted">coloca tu solo tu primer nombre.</small>
+                          </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputText2">Telefono</label>
+                            <input type="text" class="form-control" id="exampleInputText2" aria-describedby="telHelp" placeholder="Telefono"
+                            name="phone_number" #phone_number="ngModel" [(ngModel)]="usuarioModel.phone_number">
+                            <small id="telHelp" class="form-text text-muted">(502) - Guatemala.</small>
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputText3">Identificacion</label>
+                            <input type="text" class="form-control" id="exampleInputText3" aria-describedby="idHelp" placeholder="identificacion"
+                            name="identification" #identification="ngModel" [(ngModel)]="usuarioModel.identification">
+                            <small id="idHelp" class="form-text text-muted">Numero de Identificacion.</small>
+                          </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputRol1">Rol_Id</label>
+                            <input type="text" class="form-control" id="exampleInputRol1" aria-describedby="rolHelp" placeholder="No.Rol"
+                            name="role_id" #role_id="ngModel" [(ngModel)]="usuarioModel.role_id">
+                            <small id="rolHelp" class="form-text text-muted">Rol por defecto: Comprador</small>
+                          </div>
+                       
+                    </div>
+                </div>
+                
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Correo Electronico</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
+                        name="email" #email="ngModel" [(ngModel)]="usuarioModel.email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                  
+                  
+                  
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                  name="password" #password="ngModel" [(ngModel)]="usuarioModel.password">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Confirmacion Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="password_confirmation"
+                    name="password_confirmation" #password_confirmation="ngModel" [(ngModel)]="usuarioModel.password_confirmation">
+                  </div>
+              
+                <button type="submit" class="btn btn-primary" (click)="registrar()">Registrarse</button>
+              </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+                            <!-- <div class="form-group">
+                            <label for="exampleFormControlSelect1">Numero de rol</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                              <option> 1 | Admin </option>
+                              <option> 2 | vendedor </option>
+                              <option> 3 | comprador </option>
+                            </select>
+                          </div> -->
