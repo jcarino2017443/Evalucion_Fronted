@@ -1,12 +1,41 @@
 .form-group{
-    padding-bottom: 25px; 
+    margin-top: 20px; 
 }
 
 button{
-    margin-left: calc(50% - 50px);
-    margin-top: 50px;
+    
+    margin-top: 20px;
+    color: white !important;
+    &:hover{
+        background-color: white !important;
+        color: black !important;
+        
+    }
 }
 
 form{
-    margin-top: calc(50% - 70px );
+    margin-top: 15%;
+    padding: 20px;
+    background-color: #70d4d4;
+    border-radius: 20px;
+    h3{
+        margin: 0px;
+        text-align: center;
+        font-size: 6em;
+        font-weight: bold;
+        color: white; 
+    }
+    h1{
+        text-align: center;
+        margin: 0px;
+        font-size: 2em;
+        font-weight: bold;
+    }
+}
+
+input[pattern]:focus:invalid  {
+    border-color: red;
+}
+input[pattern]:focus:valid  {
+    border-color: green;
 }
