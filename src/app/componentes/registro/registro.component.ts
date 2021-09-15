@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Logout } from 'src/app/modelos/logout.modelo';
 import { Usuario } from 'src/app/modelos/usuario.modelos';
 import { RegistroService } from 'src/app/servicios/registro.service';
 import Swal from 'sweetalert2';
@@ -12,9 +13,11 @@ import Swal from 'sweetalert2';
 })
 export class RegistroComponent implements OnInit {
   public usuarioModel: Usuario;
+  //public logoutModel: Logout
 
   constructor(public _registroService: RegistroService, public _router: Router) {
-    this.usuarioModel = new Usuario("","","","", 2 ,"","")
+    this.usuarioModel = new Usuario(0,"","","","",3,{role_id:0, name:""},"","");
+  //this.logoutModel = new Logout(0,"","","","",0,{role_id:0},"","")
    }
 
   ngOnInit(): void {
@@ -22,6 +25,15 @@ export class RegistroComponent implements OnInit {
   registrar(){
     this._registroService.crearUsuario(this.usuarioModel).subscribe((response)=>{
       console.log(response)
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Success',
+        showConfirmButton: false,
+        timer: 2000
+    })
+    this._router.navigate(['/login'])
+    
     }, (error)=>{
       console.log(<any>error.error.errors)
       Swal.fire({

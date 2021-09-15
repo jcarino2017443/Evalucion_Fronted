@@ -1,0 +1,246 @@
+<br/>
+<div class="container">
+    <div class="row">
+      <br/>
+            <div class="d-grid gap-2 d-md-block">
+                <button style="background-color: #70d4d4; border: none;" data-bs-toggle="modal" data-bs-target="#modalAgregarUsuario" class="btn btn-primary" type="button"><i class="bi bi-plus-square"></i></button>
+                <hr>
+            </div>
+
+        <div class="col-xs-12 col-sm-4" *ngFor="let usua of usuarioList">
+        <div class="card text-dark bg-light mb-3" style="max-width: 18rem;" >
+          <div class="row">
+            <div class="col-md-10" style="border-color: black;">
+              <div class="card-header" >
+                <h6>{{usua.name}}</h6>
+              </div>
+            </div>
+            <div class="col-md-2" style=" padding: 8px 20px 0px 0px">
+              
+                <button style="float: right; height: 30px; background-color: #70d4d4; color: white;" class="btn btn-light btn-sm" type="button" id="dropdownSetting" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownSetting">
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario" (click)="verUsuario(usua.id)">Editar</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVerUsuario" (click)="verUsuario(usua.id)">ver</a></li>
+              </ul>
+              
+            </div>
+          </div>
+            
+            
+            <div class="card-body">
+              <h5 class="card-title">{{usua.email}}</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal agregar usuario -->
+<div  class="modal fade" id="modalAgregarUsuario" tabindex="-1"  
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAgregarUsuario">Agregar Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+              <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="InputNombre" class="form-label">Nombre del usuario</label>
+                      <input type="text" class="form-control" id="InputNombre" name="name"
+                      #name="ngModel" [(ngModel)]="usuaioModel.name">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="InputRole_id" class="form-label">Rol</label>
+                      <input type="number" class="form-control" id="InputRole_id" name="role_id"
+                      #role_id="ngModel" [(ngModel)]="usuaioModel.role_id">
+                    </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="InputPhoneNumber" class="form-label">Telefono</label>
+                    <input type="text" class="form-control" id="InputPhoneNumber" name="phone_number"
+                    #phone_number="ngModel" [(ngModel)]="usuaioModel.phone_number">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="InputIdentification" class="form-label">Identificacion</label>
+                    <input type="text" class="form-control" id="InputIdentification" name="identification"
+                    #identification="ngModel" [(ngModel)]="usuaioModel.identification">
+                  </div>
+                </div>
+              </div>
+                
+                
+                <div class="mb-3">
+                  <label for="InputEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="InputEmail" name="email"
+                  #email="ngModel" [(ngModel)]="usuaioModel.email">
+                </div>
+                <div class="mb-3">
+                  <label for="InputPassword" class="form-label">Password</label>
+                  <input type="text" class="form-control" id="InputPassword" name="password"
+                  #password="ngModel" [(ngModel)]="usuaioModel.password">
+                </div>
+                <div class="mb-3">
+                  <label for="InputPasswordConfirmation" class="form-label">Password Confirmation</label>
+                  <input type="text" class="form-control" id="InputPasswordConfirmation" name="password_confirmation"
+                  #password_confirmation="ngModel" [(ngModel)]="usuaioModel.password_confirmation">
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal aver usuario -->
+<div  class="modal fade" id="modalVerUsuario" tabindex="-1"  
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVerUsuario">Agregar Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="InputNombre" class="form-label">Nombre del usuario</label>
+                    <input type="text" class="form-control" id="InputNombre" name="name"
+                    #name="ngModel" [(ngModel)]="usuaioModel.name" disabled>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="InputRole_id" class="form-label">Rol</label>
+                    <input type="number" class="form-control" id="InputRole_id" name="role.role_id"
+                    #role.role_id="ngModel" [(ngModel)]="usuaioModel.role.role_id" disabled>
+                  </div>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="InputPhoneNumber" class="form-label">Telefono</label>
+                  <input type="text" class="form-control" id="InputPhoneNumber" name="phone_number"
+                  #phone_number="ngModel" [(ngModel)]="usuaioModel.phone_number" disabled>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="InputIdentification" class="form-label">Identificacion</label>
+                  <input type="text" class="form-control" id="InputIdentification" name="identification"
+                  #identification="ngModel" [(ngModel)]="usuaioModel.identification" disabled>
+                </div>
+              </div>
+            </div>
+              <div class="mb-3">
+                <label for="InputEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="InputEmail" name="email"
+                #email="ngModel" [(ngModel)]="usuaioModel.email" disabled>
+              </div>
+              <div class="mb-3">
+                <label for="InputRole_name" class="form-label">Rol</label>
+                <input type="text" class="form-control" id="InputRole_name" name="role_name"
+                #role_name="ngModel" [(ngModel)]="usuaioModel.role.name" disabled >
+              </div>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal Editar usuario -->
+  <div  class="modal fade" id="modalEditarUsuario" tabindex="-1"  
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEditarUsuario">Editar Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+              <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="InputNombre" class="form-label">Nombre del usuario</label>
+                      <input type="text" class="form-control" id="InputNombre" name="name"
+                      #name="ngModel" [(ngModel)]="usuaioModel.name" >
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="InputRole_name" class="form-label">Rol</label>
+                      <input type="text" class="form-control" id="InputRole_name" name="role_name"
+                      #role_name="ngModel" [(ngModel)]="usuaioModel.role.name" disabled >
+                    </div>
+                  </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="InputPhoneNumber" class="form-label">Telefono</label>
+                    <input type="text" class="form-control" id="InputPhoneNumber" name="phone_number"
+                    #phone_number="ngModel" [(ngModel)]="usuaioModel.phone_number" >
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="InputIdentification" class="form-label">Identificacion</label>
+                    <input type="text" class="form-control" id="InputIdentification" name="identification"
+                    #identification="ngModel" [(ngModel)]="usuaioModel.identification">
+                  </div>
+                </div>
+              </div>
+                <div class="mb-3">
+                  <label for="InputEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="InputEmail" name="email"
+                  #email="ngModel" [(ngModel)]="usuaioModel.email">
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="InputPassword" class="form-label">Password</label>
+                      <input type="text" class="form-control" id="InputPassword" name="password"
+                      #password="ngModel" [(ngModel)]="usuaioModel.password">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="InputPasswordConfirmation" class="form-label">Password Confirmation</label>
+                      <input type="text" class="form-control" id="InputPasswordConfirmation" name="password_confirmation"
+                      #password_confirmation="ngModel" [(ngModel)]="usuaioModel.password_confirmation">
+                    </div>
+                  </div>
+                </div>
+                
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="editarUsuario()">Actulizar</button>
+        </div>
+      </div>
+    </div>
+  </div>

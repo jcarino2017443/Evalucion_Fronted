@@ -1,5 +1,9 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { RegistroService } from './servicios/registro.service';
+import { Router, ActivatedRoute} from '@angular/router';
+import Swal from 'sweetalert2';
+
+
 
 @Component({
   selector: 'app-root',
@@ -9,15 +13,49 @@ import { RegistroService } from './servicios/registro.service';
 })
 export class AppComponent implements OnInit, DoCheck{
   title = 'EvalucionFronted';
-  public token:String;
+  public token:any;
+  
+  
 
-  constructor(private _registreService: RegistroService){
+
+  constructor(public _registreService: RegistroService,
+              private _router: Router,
+              private _activeRouter: ActivatedRoute){
 
   }
   ngOnInit(){
-    this.token = this._registreService.getToken()
+    this.token = this._registreService.getToken();
+    
+    
+
   }
   ngDoCheck(){
     this.token = this._registreService.getToken()
+    
   }
+  
+
+  Logout(){
+    localStorage.clear()
+    this.token = null;
+    this._router.navigate(['/login'])  
+     Swal.fire({
+      title: 'goodby everyone.',
+      width: 600,
+      padding: '3em',
+      background: '#fff url(/images/trees.png)',
+      backdrop: `
+        rgba(0,0,123,0.4)
+        url("/images/nyan-cat.gif")
+        left top
+        no-repeat
+      `
+     })
+    window.location.reload;
+    
+  }
+
+  
+  
+
 }

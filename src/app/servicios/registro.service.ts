@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http'
 import { GLOBAL } from './global.service';
 import { Usuario } from '../modelos/usuario.modelos';
+import jwtDecode from 'jwt-decode';
 import { Logout } from '../modelos/logout.modelo';
 
 
@@ -35,9 +36,12 @@ export class RegistroService {
    }
 
    cerrarSesion():Observable<any>{
-     
      let headersToken = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' +  this.getToken())
      return this._http.post(this.ruta + 'demo-api.lumationsuite.com/index.php/api/logout', {headers: headersToken})
+   }
+   obtenerUsuario():Observable<any>{
+     let headersToken = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + this.getToken())
+     return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/user', {headers: headersToken} )
    }
 
    /*-------------------------------------Token-----------------------------------*/
@@ -53,5 +57,20 @@ export class RegistroService {
      return this.token;
      
    }
+
+   getIdentidad(){
+     var identidad2 = JSON.parse(this.localStorage);
+     if(identidad2!= 'undefined'){
+      this.identidad = identidad2;
+     }else{
+       this.identidad = null;
+     }
+     return this.identidad
+   }
+
+
+   
+
+   
 
 }
