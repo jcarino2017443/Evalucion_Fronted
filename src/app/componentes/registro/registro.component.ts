@@ -13,11 +13,12 @@ import Swal from 'sweetalert2';
 })
 export class RegistroComponent implements OnInit {
   public usuarioModel: Usuario;
-  //public logoutModel: Logout
+  
+ 
 
   constructor(public _registroService: RegistroService, public _router: Router) {
     this.usuarioModel = new Usuario(0,"","","","",3,{role_id:0, name:""},"","");
-  //this.logoutModel = new Logout(0,"","","","",0,{role_id:0},"","")
+  
    }
 
   ngOnInit(): void {

@@ -1,0 +1,79 @@
+<br/>
+<div class="container">
+    <div class="row">
+        <br/>
+            <div class="d-grid gap-2 d-md-block">
+                <div class="row">
+                  <div class="col-lg-4 col-md-3">
+                    <form>
+                      <input class="form-control me-2" type="search" placeholder="Nombre" aria-label="Search">
+                    </form>
+                  </div>
+                  <div class="col-lg-4 col-md-3">
+                    <form>
+                      <input class="form-control me-2" type="search" placeholder="Marca" aria-label="Search">
+                    </form>
+                  </div>
+                  <div class="col-lg-4 col-md-3">
+                    <form>
+                      <input class="form-control me-2" type="search" placeholder="Modelo" aria-label="Search">
+                    </form>
+                  </div>
+                </div>
+                <button class="btn btn-outline-success" type="submit" style="margin-top: 10px;">Search</button>
+                <hr>
+                <div class="d-flex justify-content-center">
+                  <button  style="background-color: #70d4d4; border: none; width: 50%;" data-bs-toggle="modal" data-bs-target="#modalAgUsuarioVehiculo" class="btn btn-primary" type="button"><i class="bi bi-plus-square"></i></button>
+                </div>
+                <br/>
+            </div>
+           
+      <div class="col-xs-12 col-sm-4" *ngFor="let auto of vehiculoList">
+        <div class="card mb-3" style="max-width: 540px; border-color:1px black;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img style="padding-top: 80%; padding-left: 10px;" class="user-image" src="{{auto.image}}" class="img-fluid rounded-start">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body" >
+                <h5 class="card-title"> <strong>{{auto.model.name}}</strong></h5>
+                <p class="card-text">locacion: {{auto.location}}</p>
+                <p class="card-text">año: {{auto.year}}</p>
+                <p class="card-text">color: {{auto.color}}</p>
+                <p class="card-text">Model: {{auto.model.brand.name}}</p>
+  
+                <button style="background-color: white; color: black;" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Ver
+                </button>
+                 <!-- Modal -->
+                 <div class="modal fade" id="modalAgUsuarioVehiculo" tabindex="-1" aria-labelledby="modalAgUsuarioVehiculo" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalAgUsuarioVehiculo">Informacion del vehiculo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body" >
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                          Placeat quisquam itaque adipisci aliquam quas labore animi soluta dolorum? 
+                          Corrupti quisquam nam nostrum eius, itaque doloribus suscipit architecto 
+                          eum sapiente explicabo.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          <br/>
+    </div>
+    </div>
+  </div>
+  
+  
+   
+  

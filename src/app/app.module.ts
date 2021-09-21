@@ -2,6 +2,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ErrorTailorModule } from '@ngneat/error-tailor';
+import { ChartsModule } from '@rinminase/ng-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +16,13 @@ import { VehiculoPublicoComponent } from './componentes/vehiculo-publico/vehicul
 import { CatalogoComponent } from './componentes/catalogo/catalogo.component';
 import { PanelAdminComponent } from './componentes/panel-admin/panel-admin.component';
 import { UsuariosComponent } from './componentes/Administrador/usuarios/usuarios.component';
+import { VehiculosComponent } from './componentes/Administrador/vehiculos/vehiculos.component';
+
+//servicio
+import { RegistroService } from './servicios/registro.service';
+import { RestrinccionService } from './servicios/restrinccion.service';
+import { EstadisticasComponent } from './componentes/Administrador/estadisticas/estadisticas.component';
+
 
 @NgModule({
   declarations: [
@@ -24,17 +34,22 @@ import { UsuariosComponent } from './componentes/Administrador/usuarios/usuarios
     
     CatalogoComponent,
          PanelAdminComponent,
-         UsuariosComponent
+         UsuariosComponent,
+         VehiculosComponent,
+         EstadisticasComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    ChartsModule
+    
     
     
   ],
-  providers: [],
+  providers: [RegistroService, RestrinccionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

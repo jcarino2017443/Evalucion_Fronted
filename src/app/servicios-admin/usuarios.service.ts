@@ -16,8 +16,22 @@ export class UsuariosService {
 
   }
   obtenerUsuarios(): Observable<any>{
+    
+   
+    
     let headersVariable = new HttpHeaders().set("Content-Type", "application/json").append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
-    return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/users', {headers: headersVariable})
+    return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/users' ,  {headers: headersVariable})
+  }
+
+  paginacion(link:any):Observable<any>{
+    let headersVariable = new HttpHeaders().set('Content-Type', 'applicaction/json').append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
+    return this._http.get(link, {headers: headersVariable})
+
+  }
+
+  obtenerUsuarioBy(email:any, id:any, rol:any): Observable<any>{
+    let headersVariable = new HttpHeaders().set("Content-Type", "application/json").append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
+    return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/users/' + email+id+rol,  {headers: headersVariable})
   }
   crearUsuarios(usurio: Usuario):Observable<any>{
     let params = JSON.stringify(usurio)
@@ -33,5 +47,9 @@ export class UsuariosService {
   verUsuario(id:any): Observable<any>{
     let headersVariable = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
     return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/users/' + id, {headers: headersVariable} )
+  }
+  numeroUsuarios(numero:any):Observable<any>{
+    let headersVariable = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
+    return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/users?per_page=' + numero, {headers: headersVariable})
   }
 }

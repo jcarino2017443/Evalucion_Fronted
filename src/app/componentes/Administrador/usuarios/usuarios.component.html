@@ -3,33 +3,96 @@
     <div class="row">
       <br/>
             <div class="d-grid gap-2 d-md-block">
-                <button style="background-color: #70d4d4; border: none;" data-bs-toggle="modal" data-bs-target="#modalAgregarUsuario" class="btn btn-primary" type="button"><i class="bi bi-plus-square"></i></button>
+              <div class="row">
+                <div class="col-lg-4 col-md-3">
+                  <form>
+                    <input class="form-control me-2" type="search" placeholder="Email" aria-label="Search"
+                    name="email" #email="ngModel" [(ngModel)]="buscarDato.email">
+                  </form>
+                </div>
+                <div class="col-lg-4 col-md-3">
+                  <form>
+                    <input class="form-control me-2" type="search" placeholder="identificacion" aria-label="Search"
+                    name="identification" #identification="ngModel" [(ngModel)]="buscarDato.identification">
+                  </form>
+                </div>
+                <div class="col-lg-4 col-md-3">
+                  <form>
+                    <select class="form-select" aria-label="Default select example" name="role_id" #role_id="ngModel" [(ngModel)]="buscarDato.role_id" >
+                      <option disabled>Elija una opcion</option>
+                      <option selected value="">Ninguno</option>
+                      <option value="2">Vendedor</option>
+                      <option value="3">Comprador</option>
+                    </select>
+                    <!-- <input class="form-control me-2" type="search" placeholder="rol" aria-label="Search"
+                    name="role_id" #role_id="ngModel" [(ngModel)="buscarDato.role_id"> -->
+                  </form>
+                </div>
+              </div>
+                  <button class="btn btn-outline-success" type="submit" style="margin-top: 10px;" (click)="buscador()">Search</button>
+                  <button class="btn btn-outline-success" type="submit" style="margin-top: 10px;" (click)="mostrarUsuario()">Resetear</button>
+
                 <hr>
+                <div class="d-flex justify-content-center">
+                  <button  style="background-color: #70d4d4; border: none; width: 50%;" data-bs-toggle="modal" data-bs-target="#modalAgregarUsuario" class="btn btn-primary" type="button"><i class="bi bi-plus-square"></i></button>
+                </div>
+                <br/>
             </div>
 
         <div class="col-xs-12 col-sm-4" *ngFor="let usua of usuarioList">
         <div class="card text-dark bg-light mb-3" style="max-width: 18rem;" >
-          <div class="row">
-            <div class="col-md-10" style="border-color: black;">
-              <div class="card-header" >
-                <h6>{{usua.name}}</h6>
+          <div class="row"> 
+            <div class="col-md-4">
+              <div class="d-flex justify-content-center">
+                <img style="width: 55px; margin-top: 10px;" src="../../../../assets//perfil.png" alt="">
               </div>
             </div>
-            <div class="col-md-2" style=" padding: 8px 20px 0px 0px">
-              
-                <button style="float: right; height: 30px; background-color: #70d4d4; color: white;" class="btn btn-light btn-sm" type="button" id="dropdownSetting" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></button>
+            <div class="col-md-8">
+              <div class="d-flex align-items-center">
+                <div class="p-2 bd-highlight">
+                  <h6>{{usua.name}}</h6>
+                  <p>ID: {{usua.identification}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="card-body">
+              <p class="card-title" style="text-align: center;"><Strong>Email:</Strong>  {{usua.email}}</p>
+              <p class="card-title" style="text-align: center;"><Strong>Tel:</Strong>  {{usua.phone_number}}</p>
+              <p class="card-title" style="text-align: center;"><Strong>{{usua.role.name}}</Strong>  </p>
+              <div class="row">
+                <div class="col-md-12 col-lg-12">
+                  <button style="height: 30px; background-color: #70d4d4; color: white; width: 100%;" class="btn btn-light btn-sm" type="button" id="dropdownSetting" data-bs-toggle="dropdown" aria-expanded="false">Opciones</button>
               <ul class="dropdown-menu" aria-labelledby="dropdownSetting">
                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario" (click)="verUsuario(usua.id)">Editar</a></li>
                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVerUsuario" (click)="verUsuario(usua.id)">ver</a></li>
               </ul>
-              
+                </div>
+                
+              </div>
+
             </div>
           </div>
-            
-            
-            <div class="card-body">
-              <h5 class="card-title">{{usua.email}}</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <div class="row ">
+          <div class=" col-md-4 col-lg-4 col-sm-16 col-xs-6">
+            <form [hidden]="!largo">
+              <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon1" (click)="cantidadUsuario()">Enter</button>
+                <input type="text" class="form-control" placeholder="inserte un digito" aria-label="Example text with button addon" aria-describedby="button-addon1"
+                name="numero" [(ngModel)]="newNumerPage.numero">
+              </div>
+            </form>
+          </div>
+          <div class="col-md-8 col-lg-8 col-sm-6">
+            <div class="d-flex justify-content-end">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  <li  class="page-item" *ngFor="let page of paginacion" [hidden]="page.url === null" [ngClass]="{'active': page.active}">
+                    <button style="color:black !important; " class="page-link"  (click)="(paginacionUsuario(page.url))">{{page.label.replace('raquo;','').replace('laquo;','').replace('&','')}}</button>
+                  </li>
+                </ul> 
+              </nav>
             </div>
           </div>
         </div>
@@ -52,15 +115,16 @@
                     <div class="mb-3">
                       <label for="InputNombre" class="form-label">Nombre del usuario</label>
                       <input type="text" class="form-control" id="InputNombre" name="name"
-                      #name="ngModel" [(ngModel)]="usuaioModel.name">
+                      #name="ngModel" [(ngModel)]="crearUsuario.name">
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="InputRole_id" class="form-label">Rol</label>
-                      <input type="number" class="form-control" id="InputRole_id" name="role_id"
-                      #role_id="ngModel" [(ngModel)]="usuaioModel.role_id">
-                    </div>
+                    <select class="form-select" aria-label="Default select example" name="role_id"
+                    #role_id="ngModel" [(ngModel)]="crearUsuario.role_id">
+                      <option disabled>Elija una opcion</option>
+                      <option value="2">2 | Vendedor</option>
+                      <option value="3">3 | Comprador</option>
+                    </select>
                   </div>
               </div>
 
@@ -69,14 +133,14 @@
                   <div class="mb-3">
                     <label for="InputPhoneNumber" class="form-label">Telefono</label>
                     <input type="text" class="form-control" id="InputPhoneNumber" name="phone_number"
-                    #phone_number="ngModel" [(ngModel)]="usuaioModel.phone_number">
+                    #phone_number="ngModel" [(ngModel)]="crearUsuario.phone_number">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label for="InputIdentification" class="form-label">Identificacion</label>
                     <input type="text" class="form-control" id="InputIdentification" name="identification"
-                    #identification="ngModel" [(ngModel)]="usuaioModel.identification">
+                    #identification="ngModel" [(ngModel)]="crearUsuario.identification">
                   </div>
                 </div>
               </div>
@@ -85,23 +149,23 @@
                 <div class="mb-3">
                   <label for="InputEmail" class="form-label">Email</label>
                   <input type="email" class="form-control" id="InputEmail" name="email"
-                  #email="ngModel" [(ngModel)]="usuaioModel.email">
+                  #email="ngModel" [(ngModel)]="crearUsuario.email">
                 </div>
                 <div class="mb-3">
                   <label for="InputPassword" class="form-label">Password</label>
                   <input type="text" class="form-control" id="InputPassword" name="password"
-                  #password="ngModel" [(ngModel)]="usuaioModel.password">
+                  #password="ngModel" [(ngModel)]="crearUsuario.password">
                 </div>
                 <div class="mb-3">
                   <label for="InputPasswordConfirmation" class="form-label">Password Confirmation</label>
                   <input type="text" class="form-control" id="InputPasswordConfirmation" name="password_confirmation"
-                  #password_confirmation="ngModel" [(ngModel)]="usuaioModel.password_confirmation">
+                  #password_confirmation="ngModel" [(ngModel)]="crearUsuario.password_confirmation">
                 </div>
               </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Agregar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="crearUSuario()">Agregar</button>
         </div>
       </div>
     </div>
@@ -219,7 +283,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <input type="email" class="form-control" id="InputEmail" name="email"
                   #email="ngModel" [(ngModel)]="usuaioModel.email">
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label for="InputPassword" class="form-label">Password</label>
@@ -234,7 +298,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                       #password_confirmation="ngModel" [(ngModel)]="usuaioModel.password_confirmation">
                     </div>
                   </div>
-                </div>
+                </div> -->
                 
               </form>
         </div>

@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +18,6 @@ export class LoginComponent implements OnInit {
   public identidad:any;
   public token: any;
   public usuarioLogin:any
-  
   public rol:any;
   
   
@@ -29,9 +29,7 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(): void {
-
-    
-
+    // -------------------------- bootstrap
     (function () {
       'use strict'
     
@@ -51,22 +49,30 @@ export class LoginComponent implements OnInit {
           }, false)
         })
     })()
+
+    
+
   }
   login(){
     this._registroService.login(this.usuarioModel).subscribe(response=>{
       this.token = response.access_token;
-      localStorage.setItem('Token',this.token)
-      
+      localStorage.setItem('Token',this.token);
+          this._registroService.obtenerUsuario().subscribe(response=>{
+          console.log(response.data)
+          this.identidad = response.data;
+          localStorage.setItem('identidad', JSON.stringify(this.identidad))
+        }, error=>{
+          console.log(<any>error)
+        })
       Swal.fire({
           position: 'top-end',
           icon: 'success',
           title: 'Usuario Correcto',
           showConfirmButton: false,
-          timer: 2000
+          timer: 3000
       })
-      this.usuario()
-      this._router.navigate(['/panelAdmin'])
-      
+      this._router.navigate(['/login'])
+      // setTimeout(()=>{this.redirigir()},3000)
     },
     error=>{
       console.log(<any>error);
@@ -76,7 +82,7 @@ export class LoginComponent implements OnInit {
           icon: 'error',
           title: mensahe,
           showConfirmButton: false,
-          timer: 4000
+          timer: 3000
       })
     })
   }
@@ -86,15 +92,23 @@ export class LoginComponent implements OnInit {
       console.log(response.data)
       this.identidad = response.data;
       localStorage.setItem('identidad', JSON.stringify(this.identidad))
-      window.location.reload();
     }, error=>{
       console.log(<any>error)
     })
   }
 
-  UserRol(){
-      console.log (this._registroService.getIdentidad().name)
+  redirigir(){
+    
+      let paginaRol = this._registroService.getIdentidad();
+      switch (paginaRol.role.role_id) {
+        case 1:
+          this._router.navigate(['/panelAdmin']);
+          break;
+        case 2:
+          this._router.navigate(['/catalogo'])
+          break;
+      }
   }
-  
+
  
 }

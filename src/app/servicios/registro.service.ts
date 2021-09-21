@@ -41,7 +41,7 @@ export class RegistroService {
    }
    obtenerUsuario():Observable<any>{
      let headersToken = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + this.getToken())
-     return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/user', {headers: headersToken} )
+     return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/user' , {headers: headersToken} )
    }
 
    /*-------------------------------------Token-----------------------------------*/

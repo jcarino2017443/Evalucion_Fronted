@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label for="exampleInputText2">Telefono</label>
                             <input type="text" class="form-control" id="exampleInputText2" aria-describedby="telHelp" placeholder="Telefono"
-                            name="phone_number" #phone_number="ngModel" [(ngModel)]="usuarioModel.phone_number">
+                            name="phone_number" #phone_number="ngModel" [(ngModel)]="usuarioModel.phone_number" pattern="^[a-zA-Z0-9]{8}$">
                             <small id="telHelp" class="form-text text-muted">(502) - Guatemala.</small>
                           </div>
                     </div>
@@ -31,13 +31,20 @@
                           </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="exampleInputRol1">Rol_Id</label>
-                            <input type="number" class="form-control" id="exampleInputRol1" aria-describedby="rolHelp" placeholder="No.Rol"
-                            name="role_id" #role_id="ngModel" [(ngModel)]="usuarioModel.role_id">
-                            <small id="rolHelp" class="form-text text-muted">Rol por defecto: Comprador</small>
-                          </div>
-                       
+                      <label for="exampleInputSelect">Rol</label>
+                      <div *ngIf="_registroService.getIdentidad()== null || _registroService.getIdentidad().role.name === 'Vendedor' ">
+                        <select class="form-select" id="exampleInputSelect" aria-label="Default select example" name="role_id" #role_id="ngModel" [(ngModel)]="usuarioModel.role_id" >
+                          <option disabled>Elija una opcion</option>
+                          <option value="3">3 | Comprador</option>
+                        </select>
+                      </div>
+                      <!-- <div *ngIf="_registroService.getIdentidad().role.name === 'Administrador'">
+                        <select class="form-select" id="exampleInputSelect" aria-label="Default select example" name="role_id" #role_id="ngModel" [(ngModel)]="usuarioModel.role_id" >
+                          <option disabled>Elija una opcion</option>
+                          <option value="3">Comprador</option>
+                          <option value="2">Vendedor</option>
+                        </select>
+                      </div> -->
                     </div>
                 </div>
                 
@@ -69,12 +76,3 @@
     </div>
 
 </div>
-
-                            <!-- <div class="form-group">
-                            <label for="exampleFormControlSelect1">Numero de rol</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                              <option> 1 | Admin </option>
-                              <option> 2 | vendedor </option>
-                              <option> 3 | comprador </option>
-                            </select>
-                          </div> -->

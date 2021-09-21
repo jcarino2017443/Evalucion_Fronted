@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   public title:String;
   constructor() { 
-    this.title = "Predo de Vehiculos"
+    this.title = "Predio de Vehiculos"
   }
 
   ngOnInit(): void {

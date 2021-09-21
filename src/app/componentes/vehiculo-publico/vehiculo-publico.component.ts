@@ -9,6 +9,7 @@ import { VehiculosService } from 'src/app/servicios/vehiculos.service';
 })
 export class VehiculoPublicoComponent implements OnInit {
   public vehiculoList:any;
+  public estado:any;
 
   constructor(public _vehiculoService: VehiculosService) { }
 
@@ -20,6 +21,7 @@ export class VehiculoPublicoComponent implements OnInit {
     this._vehiculoService.vehiculoPublico().subscribe(response=>{
       console.log(response.data);
       this.vehiculoList = response.data;
+      this.estado = response.data.length;
     }, error =>{
       console.log(error);
       

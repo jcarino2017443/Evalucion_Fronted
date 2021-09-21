@@ -1,0 +1,16 @@
+input .ng-invalid.ng-touched{
+    border: solid 2px red;
+}
+.container form .col-md-4 input .ng-invalid.ng-touched{
+    background-color: olive;
+}
+
+ input .ng-dirty.ng-valid{
+ border: solid 2px green;
+}
+
+img{
+    
+    width: 60%;
+    height: 90%;
+}

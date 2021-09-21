@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-md-7 col-lg-5 col-sm-10 col-xs-12">
-                <form #loginForm ="ngForm"  class="needs-validation" novalidate>
+                <form  class="needs-validation" novalidate>
                     <div>
                         <h3><i class="bi bi-person-circle"></i></h3>
                         <h1>Bienvenido</h1>
@@ -15,7 +15,7 @@
                         <div class="valid-feedback">
                             Looks good!
                           </div>
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback" *ngIf="!email.valid && !email.touched">
                             Escriba  una correo valido.
                           </div>
                       </div>
@@ -24,21 +24,21 @@
                       <label for="exampleInputPassword1">Password</label>
                       <div class="input-group has-validation">
                         <input required type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
-                         name="password" #password="ngModel" [(ngModel)]="usuarioModel.password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
-                      
+                         name="password" #password="ngModel" [(ngModel)]="usuarioModel.password">
                       <div class="valid-feedback">
                         Looks good!
                       </div>
-                      <div class="invalid-feedback">
-                        no cumple el estandar.
+                      <div *ngIf="!password.valid && !password.touched">
+                        <div class="invalid-feedback">
+                          no cumple el estandar.
+                        </div>
                       </div>
-                      <!-- <span *ngIf="!password.valid && !password.touched"> la contraseña es obligatoria </span> -->
                         </div>
                     </div>
                     <div class="row justify-content-md-center">
                         <div class="col-lg-6 col-md-7 col-sm-11 col-xs-12">
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-primary" (click)="login()" >Login</button>
+                                <button type="submit" class="btn btn-primary"  (click)="login()" >Login</button>
                                 <button type="submit" class="btn btn-primary" routerLink="/registro" >Registrate</button>
             
                             </div>

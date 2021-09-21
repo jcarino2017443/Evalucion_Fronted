@@ -1,0 +1,54 @@
+<br/>
+<div class="container">
+<div class="row">
+  <div class="col-md-3">
+    <div class="d-flex justify-content-center">
+      <select [(ngModel)]="chartInicial" style="display: block;">
+        <option *ngFor="let chart of chartTypes; let indice=index" [value]="chart.nombreTipo" >{{indice+1}} | {{chart.texto}}</option>
+    </select>
+    </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-center">
+        <div class="btn-group-vertical">
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="btnradio1" (click)="obtenerVentasYear()" >Año</label>
+          
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2" (click)="obtenerVentasporMes()">Mes</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3" (click)="ventasPorVendedor()">Vendedores</label>
+            
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio4" (click)="obtenerPromedio()">Promedio</label> 
+        
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <br/>
+  
+  </div>
+<div class="col-md-9">
+  <div style="display: block;">
+    <canvas baseChart
+      [chartType]="chartInicial"
+      [data]="chartData"
+      [colors]="chartColors"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+      [plugins]="chartPlugins"
+      [legend]="chartLegend">
+    </canvas>
+  </div>
+  <br/>
+  <h4 style="text-align: center;" [hidden]="!promedio">Promedio de ventas: {{promedio}}</h4>
+</div>
+</div>
+
+</div>
+
