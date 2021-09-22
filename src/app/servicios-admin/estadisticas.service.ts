@@ -14,21 +14,31 @@ export class EstadisticasService {
    }
 
   
-   ventasAño():Observable <any>{
+   ventasAño(data:any):Observable <any>{
      let headersVariable = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
-     return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/stats/salesPerYear', {headers:headersVariable});
+     if(data != null){
+      return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/stats/salesPerYear/?years='+ data, {headers:headersVariable});
+     }
+      return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/stats/salesPerYear', {headers:headersVariable});
+     
+     
+
    }
 
-   ventasMes():Observable<any>{
+   ventasMes(data:any):Observable<any>{
     let headersVariable = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
-     return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/stats/salesPerMonth', {headers:headersVariable});
-
+    if(data != null){
+      return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/stats/salesPerMonth?months=' + data, {headers:headersVariable});
+    }
+      return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/stats/salesPerMonth', {headers:headersVariable});
    }
+
 
    promedioVentas():Observable<any>{
     let headersVariable = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
     return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/stats/averageSale', {headers: headersVariable});
    }
+   
 
    porVendedor():Observable<any>{
     let headersVariable = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
@@ -52,7 +62,7 @@ export class EstadisticasService {
 
    }
 
-   lowestSeller(){
+   lowestSeller():Observable<any>{
     let headersVariable = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
     return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/stats/lowestSeller', {headers:headersVariable});
 

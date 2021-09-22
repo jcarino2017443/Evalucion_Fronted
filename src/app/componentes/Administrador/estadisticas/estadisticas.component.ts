@@ -10,8 +10,47 @@ import { EstadisticasService } from 'src/app/servicios-admin/estadisticas.servic
 export class EstadisticasComponent implements OnInit {
 public data:any;
 public promedio:any;
-public masVendida:any;
+public variable:any=null;
 
+
+
+  public marcaVendidaName:any;
+  public marcaVendidaSales:any;
+
+  public menosVendidaName:any;
+  public menosVendidaSales:any;
+
+  public vendedorMenosName:any;
+  public vendedorMenosCount:any;
+  public vendedorMenosEmail:any
+
+  public vendedorMasName:any;
+  public vendedorMasCount:any;
+  public vendedorMasEmail:any;
+
+
+chartOption = [
+  {valor:'1' },
+  {valor:'2' },
+  {valor:'3' },
+  {valor:'4' },
+  {valor:'5' },
+]
+
+chartOptionMes = [
+  {valor:'1' },
+  {valor:'2' },
+  {valor:'3' },
+  {valor:'4' },
+  {valor:'5' },
+  {valor:'6' },
+  {valor:'7' },
+  {valor:'8' },
+  {valor:'9' },
+  {valor:'10' },
+  {valor:'11' },
+  {valor:'12' }
+]
 
 chartInicial:any = 'pie'
   chartTypes = [
@@ -35,12 +74,15 @@ chartInicial:any = 'pie'
   
   
   ngOnInit(): void {
-    this.obtenerVentasYear();
+    this.obtenerVentasYear(this.variable);
     this.marcaMasVendida();
+    this.marcaMenosVendida();
+    this.vendedorMenosVentas();
+    this.vendedorMasVentas()
   }
 
-  obtenerVentasYear(){
-    this._estadisticaService.ventasAño().subscribe(response=>{
+  obtenerVentasYear(dato:any){
+    this._estadisticaService.ventasAño(dato).subscribe(response=>{
       this.promedio = "";
       this.chartData=[];
       this.chartLabels=[];
@@ -56,8 +98,8 @@ chartInicial:any = 'pie'
     })
   }
 
-  obtenerVentasporMes(){
-    this._estadisticaService.ventasMes().subscribe(response =>{
+  obtenerVentasporMes(data:any){
+    this._estadisticaService.ventasMes(data).subscribe(response =>{
     this.promedio = "";
     this.chartData=[];
     this.chartLabels=[];
@@ -94,12 +136,33 @@ chartInicial:any = 'pie'
 
   marcaMasVendida(){
     this._estadisticaService.marcaVendida().subscribe(response=>{
-      this.masVendida = response.brand;
+      this.marcaVendidaName = response.brand.name;
+      this.marcaVendidaSales = response.brand.sales_count;
+    })
+  }
+
+  marcaMenosVendida(){
+    this._estadisticaService.marcaMenosVendida().subscribe(response=>{
+      this.menosVendidaName = response.brand.name;
+      this.menosVendidaSales = response.brand.sales_count;
+    })
+  }
+  vendedorMenosVentas(){
+    this._estadisticaService.topSeller().subscribe(response=>{
+      this.vendedorMenosName = response.seller.name;
+      this.vendedorMenosCount = response.seller.sales_count;
+      this.vendedorMenosEmail = response.seller.email;
+
+    })
+  }
+  vendedorMasVentas(){
+    this._estadisticaService.lowestSeller().subscribe(response=>{
+      this.vendedorMasName = response.seller.name;
+      this.vendedorMasEmail = response.seller.email;
+      this.vendedorMasCount = response.seller.sales_count;
     })
   }
 
 
-  // for (let i = 0; i < this.pruebasArray.length; i++) {
-        //    this.chartLabels.push(this.pruebasArray[i]);
-        //   this.chartLabels.push(this.pruebasArray[i].habitantes)
+
 }
