@@ -91,7 +91,9 @@ export class LoginComponent implements OnInit {
       this._registroService.obtenerUsuario().subscribe(response=>{
       console.log(response.data)
       this.identidad = response.data;
-      localStorage.setItem('identidad', JSON.stringify(this.identidad))
+      localStorage.setItem('identidad', JSON.stringify(this.identidad));
+      window.location.reload();
+      
     }, error=>{
       console.log(<any>error)
     })
@@ -108,6 +110,7 @@ export class LoginComponent implements OnInit {
           this._router.navigate(['/catalogo'])
           break;
       }
+     
   }
 
  

@@ -1,0 +1,224 @@
+<br/>
+<div class="container">
+    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+      <div class="row">
+        <div class="col-md-6 px-0">
+          <h1 style="text-align: center;" class="display-4 fst-italic">Ventas</h1>
+          <p style="text-align: center;" class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+      </div>
+      <div class="col-md-6 px-0" style="padding: 5%; border-radius: 10px;">
+        <div class="d-flex justify-content-center">
+          <button style="font-size: 5em; background-color: #70d4d4; border: none"  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <i style="color: black;" class="bi bi-plus-lg"></i>
+          </button>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="d-grid gap-2 d-md-block">
+        <div class="row">
+          <div class="col-lg-6 col-md-6">
+            <form>
+              <input class="form-control me-2" type="text" placeholder="comprador_id" aria-label="Search"
+              name="buyer_id" #buyer_id="ngModel" [(ngModel)]="ventasFiltros.buyer_id">
+            </form>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <form>
+              <input class="form-control me-2" type="text" placeholder="vendedor_id" aria-label="Search"
+              name="seller_id" #seller_id="ngModel" [(ngModel)]="ventasFiltros.seller_id">
+            </form>
+          </div>   
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <form>
+                  <input class="form-control me-2" type="text" placeholder="model_id" aria-label="Search"
+                  name="model_id" #model_id="ngModel" [(ngModel)]="ventasFiltros.model_id">
+                </form>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <form>
+                    <select class="form-select" aria-label="Default select example" aria-describedby="final" name="brand_id" #brand_id="ngModel" [(ngModel)]="ventasFiltros.brand_id">
+                      <option selected  value="">Ninguno</option>
+                      <option *ngFor="let marca of marcas" [value]="marca.brand_id">{{marca.brand_id}} - {{marca.name}}</option>
+                    </select>
+                    <div id="final" class="form-text" >Eliga alguna Marca.</div>
+
+                  </form>
+              </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <button class="btn btn-outline-success" type="submit" style="margin-top: 10px; width: 100%" (click)="filtros()">Search</button>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <button class="btn btn-outline-success" type="submit" style="margin-top: 10px; width: 100%" (click)="obtenerVentasAdmin()">Resetear</button>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <button class="btn btn-outline-secondary" type="submit" style="margin-top: 10px; width: 100%" data-bs-toggle="modal" data-bs-target="#MontonModal">Monton rango</button>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <button class="btn btn-outline-secondary" type="submit" style="margin-top: 10px; width: 100%" data-bs-toggle="modal" data-bs-target="#FechaModal">Fechas rango</button>
+            </div>
+        </div>
+          <hr>
+          <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-md-4">
+              <div class="d-flex justify-content-center">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    Cantidad
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    
+                    <li><button class="dropdown-item" type="button" (click)="ordenarDatos('','sort=amount')">Ascendente</button></li>
+                    <li><button class="dropdown-item" type="button" (click)="ordenarDatos('','sort=-amount')"> Descendente</button></li>
+                  </ul>
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-lg-4 col-md-4">
+              <div class="d-flex justify-content-center">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    Creacion
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    
+                    <li><button class="dropdown-item" type="button" (click)="ordenarDatos('sort=created_at','')">Ascendente</button></li>
+                    <li><button class="dropdown-item" type="button" (click)="ordenarDatos('sort=-created_at','')">Descendente</button></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+      </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4 col-xs-6 col-sm-6" *ngFor="let venta of ventasList">
+            <div class="col-xs-12 col-sm-12">
+                <div  class="card mb-1" style="max-width: 18rem;" >
+                    <div class="card-header" style="text-align: center; background-color: #70d4d4;">ID: {{venta.buyer.buyer_id}} - {{venta.buyer.name}} <i class="bi bi-person-badge"></i></div>
+                    <div class="card-body text-dark">
+                      <h6 class="card-title" style="text-align: center;"><i class="bi bi-megaphone-fill"></i> Datos del vendedor</h6>
+                      <hr>
+                      <p class="card-text" style="margin: 0%; text-align: center;" >Nombre: {{venta.vehicle.seller.name}}</p>
+                      <p class="card-text" style="text-align: center;">Email: {{venta.vehicle.seller.email}}</p>
+                      <h6 class="card-title" style="text-align: center;"><i class="bi bi-speedometer2"></i> Datos del vehiculo</h6>
+                      <hr>
+                      <p class="card-text" style="text-align: center;">Model_id: {{venta.vehicle.model.model_id}} - {{venta.vehicle.model.name}}</p>
+                      <div class="card-footer">
+                        <small class="text-muted" style="text-align: center;"><i class="bi bi-calendar2-date"></i> Fecha: {{venta.created_at}}</small><br/>
+                        <small class="text-muted" style="text-align: center !important;"><i class="bi bi-cash-coin"></i> Monton: {{venta.amount}}</small>
+                      </div>
+                      
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Modal Monton -->
+<div class="modal fade" id="MontonModal" tabindex="-1" aria-labelledby="MontonModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="MontonModal">Introduzca cantidades</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <form>
+                        <input class="form-control me-2" type="text" aria-label="Search" aria-describedby="ini"
+                        name="amount1" #amount1=ngModel [(ngModel)]="ventasFiltros.amount1"> 
+                        <div id="ini" class="form-text" style="text-align: center;">Cantidad inicial.</div>
+                      </form>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <form>
+                        <input class="form-control me-2" type="text"  aria-label="Search" aria-describedby="final"
+                        name="amount2" #amount2="ngModel" [(ngModel)]=ventasFiltros.amount2>
+                        <div id="final" class="form-text" style="text-align: center;">Cantidad final.</div>
+
+                      </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="rangos()">Buscar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Fechas -->
+<div class="modal fade" id="FechaModal" tabindex="-1" aria-labelledby="FechaModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="FechaModal">Fechas de ventas</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <form>
+                        <input class="form-control me-2" type="date" aria-label="Search" aria-describedby="fechaini"
+                        name="created_at1" #created_at1="ngModel" [(ngModel)]=ventasFiltros.created_at1 min="2021-01-01">
+                        <div id="fechaini" class="form-text" style="text-align: center;">Fecha inicial.</div>
+                      </form>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <form>
+                        <input class="form-control me-2" type="date" placeholder="fecha final" aria-label="Search" aria-describedby="fechafinal"
+                        name="created_at2" #created_at2="ngModel" [(ngModel)]=ventasFiltros.created_at2 min="2021-01-01">
+                        <div id="fechafinal" class="form-text" style="text-align: center;">Fecha final.</div>
+
+                      </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="rangos()">Buscar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Agregar Venta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+          
+              <form>
+                  <input class="form-control me-2" type="text" placeholder="id del vehiculo" aria-label="id del vehiculo" aria-describedby="ini"
+                  name="vehicle_id" #vehicle_id="ngModel" [(ngModel)]=ventasModel.vehicle_id> 
+                </form>
+<br/>
+              <form>
+                  <input class="form-control me-2" type="text" placeholder="id del comprador"  aria-describedby="final"
+                  name="buyer_id" #buyer_id="ngModel" [(ngModel)]=ventasModel.buyer_id>
+                </form>
+          
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="registrarVentas()">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>

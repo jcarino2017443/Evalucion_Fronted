@@ -26,7 +26,6 @@ export class UsuariosService {
   paginacion(link:any):Observable<any>{
     let headersVariable = new HttpHeaders().set('Content-Type', 'applicaction/json').append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
     return this._http.get(link, {headers: headersVariable})
-
   }
 
   obtenerUsuarioBy(email:any, id:any, rol:any): Observable<any>{

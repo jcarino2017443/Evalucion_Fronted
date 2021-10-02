@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EstadisticasComponent } from './componentes/Administrador/estadisticas/estadisticas.component';
 import { UsuariosComponent } from './componentes/Administrador/usuarios/usuarios.component';
 import { VehiculosComponent } from './componentes/Administrador/vehiculos/vehiculos.component';
+import { VentasComponent } from './componentes/Administrador/ventas/ventas.component';
 import { CatalogoComponent } from './componentes/catalogo/catalogo.component';
 import { HomeComponent } from './componentes/home/home.component';
 import { LoginComponent } from './componentes/login/login.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'estadisticas', component: EstadisticasComponent},
   {path: 'vehiculos', component: VehiculosComponent},
   {path: 'usuarios', component: UsuariosComponent},
+  {path: 'ventas', component: VentasComponent},
   {path: '**', component:HomeComponent}
   
 ];

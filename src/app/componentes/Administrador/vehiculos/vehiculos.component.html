@@ -6,74 +6,485 @@
                 <div class="row">
                   <div class="col-lg-4 col-md-3">
                     <form>
-                      <input class="form-control me-2" type="search" placeholder="Nombre" aria-label="Search">
+                      <input class="form-control me-2" type="search" placeholder="Locacion" aria-label="Search"
+                      name="location" #location="ngModel" [(ngModel)]="vehiculoFiltros.location">
                     </form>
                   </div>
                   <div class="col-lg-4 col-md-3">
                     <form>
-                      <input class="form-control me-2" type="search" placeholder="Marca" aria-label="Search">
+                      <input class="form-control me-2" type="search" placeholder="Color" aria-label="Search"
+                      name="color" #color="ngModel" [(ngModel)]="vehiculoFiltros.color">
                     </form>
                   </div>
                   <div class="col-lg-4 col-md-3">
                     <form>
-                      <input class="form-control me-2" type="search" placeholder="Modelo" aria-label="Search">
+                      <input class="form-control me-2" type="search" placeholder="Modelo" aria-label="Search"
+                      name="model_id" #model_id="ngModel" [(ngModel)]="vehiculoFiltros.model_id">
                     </form>
                   </div>
                 </div>
-                <button class="btn btn-outline-success" type="submit" style="margin-top: 10px;">Search</button>
+                <br/>
+                <div class="row">
+                  <div class="col-lg-4 col-md-3">
+                    <form>
+                      <select class="form-select" aria-label="Default select example" name="fuel_type_id" #fuel_type_id="ngModel" [(ngModel)]="vehiculoFiltros.fuel_type_id" aria-describedby="gas" >
+                        <option selected disabled>Tipo de Gasolina</option>
+                        <option value="">Ninguno</option>
+                        <option value="1">Gasolina</option>
+                        <option value="2">Diésel</option>
+                        <option value="3">Híbrido</option>
+                      </select>
+                      <div id="gas" class="form-text">Tipo de Gasolina</div>
+                    
+                    </form>
+                  </div>
+                  <div class="col-lg-4 col-md-3">
+                    <form>
+                      <input class="form-control me-2" type="search" placeholder="No. Vendedor" aria-label="Search"
+                      name="seller_id" #seller_id="ngModel" [(ngModel)]="vehiculoFiltros.seller_id">
+                    </form>
+                  </div>
+                  <div class="col-lg-4 col-md-3">
+                    <form>
+                      <select class="form-select" aria-label="Default select example" name="sold" #sold="ngModel" [(ngModel)]="vehiculoFiltros.sold" aria-describedby="estado" >
+                        <option value="">Ninguno</option>
+                        <option value="0">Vendido</option>
+                        <option value="1">En venta</option>
+                    
+                      </select>
+                      <div id="estado" class="form-text">Estado de venta</div>
+                    </form>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button class="btn btn-outline-success" type="submit" style="width: 50%; margin-bottom: 10px;" (click)="buscarFiltros()">Search</button>
+                </div>
+                <hr>
+                <!-------------------------------------------- buscadores por rango------- -------------------------->
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                        <input  type="text" class="form-control" placeholder="No. Año inicial" aria-label="First name"
+                      name="yearsRange1" #yearsRange1="ngModel" [(ngModel)]="vehiculoRange.yearsRange1">
+                      <div *ngIf="vehiculoRange.yearsRange1.length > 4" id="emailHelp" class="form-text" style="color:red">No cumple el formato</div>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="No. Año final" aria-label="Last name"
+                        name="yearsRange2" #yearsRange2="ngModel" [(ngModel)]="this.vehiculoRange.yearsRange2" aria-describedby="textHelp" [disabled]="!vehiculoRange.yearsRange1">
+                        <div *ngIf="vehiculoRange.yearsRange2.length > 4" id="emailHelp" class="form-text" style="color:red">No cumple el formato</div>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <p style="text-align: center;"><Strong>Ordenamiento de datos</Strong></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                        <input  type="text" class="form-control" placeholder="No. precio incial" aria-label="First name"
+                      name="priceRange1" #priceRange1="ngModel" [(ngModel)]="vehiculoRange.priceRange1" >
+                      <div *ngIf="" id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                        <input type="number" class="form-control" placeholder="No. precio final" aria-label="Last name"
+                      name="priceRange2" #priceRange2="ngModel" [(ngModel)]="this.vehiculoRange.priceRange2" [disabled]="!vehiculoRange.priceRange1">
+                      <div *ngIf="" id="emailHelp" class="form-text">En este campo el precio no puede mayor.</div>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="d d-flex justify-content-center">
+                        <div class="btn-group" role="group">
+                          <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            precio
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            <li><a class="dropdown-item" (click)="ordenPrice('-price')">Descendente</a></li>
+                            <li><a class="dropdown-item" (click)="ordenPrice('price')">Ascendente</a></li>
+                          </ul>
+                        </div>                        </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="d d-flex justify-content-center">
+                      <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                          cilind.
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                          <li><a class="dropdown-item" (click)="ordenCylanders('-cylinders')">Descendente</a></li>
+                          <li><a class="dropdown-item"(click)="ordenCylanders('cylinders')">Ascendente</a></li>
+                        </ul>
+                      </div>                        </div>
+                </div>  
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                        <input  type="text" class="form-control" placeholder="No. motor inicial" aria-label="First name"
+                      name="engineRange1" #engineRange1="ngModel" [(ngModel)]="vehiculoRange.engineRange1">
+                      <div *ngIf="" id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                        <input  type="number" class="form-control" placeholder="No. motor final" aria-label="Last name"
+                        name="engineRange2" #engineRange2="ngModel" [(ngModel)]="this.vehiculoRange.engineRange2" [disabled]="!vehiculoRange.engineRange1"> 
+                        <div *ngIf="" id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="d d-flex justify-content-center">
+                      <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                          puert.
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                          <li><a class="dropdown-item" (click)="orderDoors('-doors')">Descendente</a></li>
+                          <li><a class="dropdown-item" (click)="orderDoors('doors')" >Ascendente</a></li>
+                        </ul>
+                      </div>                        </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="d d-flex justify-content-center">
+                    <div class="btn-group" role="group">
+                      <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Años
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <li><a class="dropdown-item" (click)="ordenYear('-year')">Descendente</a></li>
+                        <li><a class="dropdown-item" (click)="ordenYear('year')">Ascendente</a></li>
+                      </ul>
+                    </div>                        </div>
+              </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                        <input  type="text" class="form-control" placeholder="No. cilindro incial" aria-label="First name"
+                      name="cylindersRange1" #cylindersRange1="ngModel" [(ngModel)]="vehiculoRange.cylindersRange1">
+                      <div *ngIf="vehiculoRange.cylindersRange1.length > 1" id="emailHelp" class="form-text">Dato no aceptado.</div>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                        <input  type="text" class="form-control" placeholder="No. cilindro final" aria-label="Last name"
+                      name="cylindersRange2" #cylindersRange2="ngModel" [(ngModel)]="this.vehiculoRange.cylindersRange2" [disabled]="!vehiculoRange.cylindersRange1">
+                      <div *ngIf="this.vehiculoRange.cylindersRange2.length > 1" id="emailHelp" class="form-text">Dato no aceptado.</div>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="d d-flex justify-content-center">
+                      <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                          cread.
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                          <li><a class="dropdown-item" (click)="orderCreated('-created_at')">Descendente</a></li>
+                          <li><a class="dropdown-item" (click)="orderCreated('created_at')">Ascendente</a></li>
+                        </ul>
+                      </div>                        </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="d d-flex justify-content-center">
+                    <div class="btn-group" role="group">
+                      <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        motor
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <li><a class="dropdown-item" (click)="orderEngine('-engine')">Descendente</a></li>
+                        <li><a class="dropdown-item" (click)="orderEngine('engine')">Descendente</a></li>
+                      </ul>
+                    </div> </div>
+              </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                        <input  type="text" class="form-control" placeholder="No. puerta incial" aria-label="First name"
+                      name="doorsRange1" #doorsRange1="ngModel" [(ngModel)]="vehiculoRange.doorsRange1">
+                      <div *ngIf="vehiculoRange.doorsRange1.length > 1" id="emailHelp" class="form-text">El rango es hasta 7 puertas.</div>
+                      </div>
+                  </div>
+                  <div class="col-md-3"> 
+                      <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="No. puerta final" aria-label="Last name"
+                      name="doorsRange2" #doorsRange2="ngModel" [(ngModel)]="this.vehiculoRange.doorsRange2" [disabled]="!vehiculoRange.doorsRange1"></div>
+                  </div>
+                  
+                </div>
+                  <div class="row">
+                    <div class="col-md-6" >
+                      <div class="d-flex justify-content-center">
+                      <button style="width: 50%;" class="btn btn-outline-success" type="submit"  (click)="buscarRango()"  >Buscar por rangos</button>
+                    </div>
+                  </div>
+                </div>
+                
                 <hr>
                 <div class="d-flex justify-content-center">
-                  <button  style="background-color: #70d4d4; border: none; width: 50%;" data-bs-toggle="modal" data-bs-target="#modalAgUsuarioVehiculo" class="btn btn-primary" type="button"><i class="bi bi-plus-square"></i></button>
+                  <div class="spinner-grow" role="status" [hidden]="spinner">
+                    <h1 class="visually-hidden">Loading...</h1>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center" >
+                  <button [hidden]="!spinner"  style="background-color: #70d4d4; border: none; width: 50%;" data-bs-toggle="modal" data-bs-target="#modalAgUsuarioVehiculo" class="btn btn-primary" type="button"><i class="bi bi-plus-square"></i></button>
                 </div>
                 <br/>
             </div>
-           
-      <div class="col-xs-12 col-sm-4" *ngFor="let auto of vehiculoList">
-        <div class="card mb-3" style="max-width: 540px; border-color:1px black;">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img style="padding-top: 80%; padding-left: 10px;" class="user-image" src="{{auto.image}}" class="img-fluid rounded-start">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body" >
-                <h5 class="card-title"> <strong>{{auto.model.name}}</strong></h5>
-                <p class="card-text">locacion: {{auto.location}}</p>
-                <p class="card-text">año: {{auto.year}}</p>
-                <p class="card-text">color: {{auto.color}}</p>
-                <p class="card-text">Model: {{auto.model.brand.name}}</p>
-  
-                <button style="background-color: white; color: black;" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  Ver
-                </button>
-                 <!-- Modal -->
-                 <div class="modal fade" id="modalAgUsuarioVehiculo" tabindex="-1" aria-labelledby="modalAgUsuarioVehiculo" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="modalAgUsuarioVehiculo">Informacion del vehiculo</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="col-xs-12 col-sm-12 col-md-4"  *ngFor="let auto of vehiculoList">
+              <div class="row row-cols-1 row-cols-md-12 g-4">
+                <div class="col">
+                  <div class="card h-100">
+                    <img src="{{auto.image}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 style="text-align: center;" class="card-title"><strong>{{auto.model.name}} - {{auto.year}}</strong></h5>
+                      <h6 class="card-text" style="text-align: center;">Desde: {{auto.price.replace(',','').replace(',','').replace('.00', '') | currency:'GTQ' }}</h6>
+                      <p class="card-text" style="text-align: center;">Motor: {{auto.engine}}   Color: {{auto.color}}</p>
+                      <p class="card-text"></p>
+                      <div class="col-md-12 col-lg-12">
+                        <button style="height: 30px; background-color: #70d4d4; color: white; width: 100%;" class="btn btn-light btn-sm" type="button" id="dropdownSetting" data-bs-toggle="dropdown" aria-expanded="false">Opciones</button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownSetting">
+                      <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario" (click)="verVehiciculos(auto.vehicle_id)">Editar</a></li>
+                      <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVerUsuario" >ver</a></li>
+                    </ul>
                       </div>
-                      <div class="modal-body" >
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                          Placeat quisquam itaque adipisci aliquam quas labore animi soluta dolorum? 
-                          Corrupti quisquam nam nostrum eius, itaque doloribus suscipit architecto 
-                          eum sapiente explicabo.</p>
+                      <br/>
+                      <div class="card-footer">
+                        <div class=row>
+                          <div class="col-md-7">
+                            <small class="text-muted"><i class="bi bi-geo-alt-fill"></i> {{auto.location}} </small>
+                          </div>
+                          <div class="col-md-5">
+                            <small  class="text-muted"><i class="bi bi-wrench"></i> {{auto.model.brand.name}}</small><br/>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                          <small class="text-muted"><i class="bi " [ngClass]="{'bi bi-cart-check-fill' : auto.sold === true, 'bi bi-cart-x-fill': auto.sold === false}"></i> Sold: <Strong>{{auto.sold}}</Strong> </small>
+                        </div>
                       </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            
+            <br/>
+            <br/>
+        <div class="row">
+          <div class="col-md-4 col-lg-4 col-sm-16 col-xs-6">
+            <form [hidden]="!spinner">
+              <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon1" (click)="cantidadItems()">Enter</button>
+                <input type="text" class="form-control" placeholder="inserte un digito" aria-label="Example text with button addon" aria-describedby="button-addon1"
+                name="numero" [(ngModel)]="newNumerPage.numero">
+              </div>
+            </form>
+          </div>
+          <div class="col-md-8 col-lg-8 col-sm-16 col-xs-6">
+            <div class="d-flex justify-content-end">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li  class="page-item" *ngFor="let link of metaLinks" [ngClass]="{'active': link.active}"> <button  [hidden]="link.url === null" class="page-link" (click)="mostrarVehiculosPag(link.url)">{{link.label.replace('raquo;','').replace('laquo;','').replace('&','')}}</button></li>
+                </ul>
+              </nav>
+            </div>
           </div>
         </div>
+            
+              
+                 <!-- Modal -->
+                 <div class="modal fade" id="modalAgUsuarioVehiculo" tabindex="-1" aria-labelledby="modalAgUsuarioVehiculo" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalAgUsuarioVehiculo">Creacion de vehiculo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body" >
+                        <form>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label for="exampleInputImage" class="form-label">Imagen URL</label>
+                                <input type="text" class="form-control" id="exampleInputImage" aria-describedby="imagenHelp"
+                                name="image" #image="ngModel" [(ngModel)]="vehiculoModel.image">
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label for="exampleInputYear" class="form-label">Año</label>
+                                <input type="text" class="form-control" id="exampleInputYear" aria-describedby="añoHelp"
+                                name="year" #year="ngModel" [(ngModel)]="vehiculoModel.year">
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label for="exampleInputColor" class="form-label">Color</label>
+                                <input type="text" class="form-control" id="exampleInputColor" aria-describedby="colorHelp"
+                                name="color" #color="ngModel" [(ngModel)]="vehiculoModel.color">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label for="exampleInputPrice" class="form-label">Price</label>
+                                <input type="text" class="form-control" id="exampleInputPrice" aria-describedby="priceHelp"
+                                name="price" #price="ngModel" [(ngModel)]="vehiculoModel.price">
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label for="exampleInputLocation" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="exampleInputLocation" aria-describedby="locationHelp"
+                                name="location" #location="ngModel" [(ngModel)]="vehiculoModel.location">
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label for="exampleInputEngine" class="form-label">Engine</label>
+                                <input type="text" class="form-control" id="exampleInputEngine" aria-describedby="engineHelp"
+                                name="engine" #engine="ngModel" [(ngModel)]="vehiculoModel.engine">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label for="exampleInputCylinders" class="form-label">cylinders</label>
+                                <input type="text" class="form-control" id="exampleInputCylinders" aria-describedby="cylindersHelp"
+                                name="cylinders" #cylinders="ngModel" [(ngModel)]="vehiculoModel.cylinders">
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label for="exampleInputDoors" class="form-label">Puertas</label>
+                                <input type="text" class="form-control" id="exampleInputDoors" aria-describedby="doorsHelp"
+                                name="doors" #doors="ngModel" [(ngModel)]="vehiculoModel.doors">
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label for="exampleInputDescription" class="form-label">Descripcion</label>
+                                <input type="text" class="form-control" id="exampleInputDescription" aria-describedby="descriptionHelp"
+                                name="description" #description="ngModel" [(ngModel)]="vehiculoModel.description">
+                              </div>
+                            </div>
+                            
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label for="exampleInputMofrl" class="form-label">Model</label>
+                                <input type="text" class="form-control" id="exampleInputMofrl" aria-describedby="modelHelp"
+                                name="model_id" #model_id="ngModel" [(ngModel)]="vehiculoModel.model_id" aria-describedby="emailHelp">
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <label for="exampleInputFuel_type" class="form-label">Fuel_type</label>
+                              <select class="form-select" id="exampleInputFuel_type" aria-label="Default select example" 
+                              name="fuel_type_id" #fuel_type_id="ngModel" [(ngModel)]="vehiculoModel.fuel_type_id">
+                                <option disabled selected>Open this select menu</option>
+                                <option value="1">Gasolina</option>
+                                <option value="2">Diesel</option>
+                                <option value="3">Hibrido</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label for="exampleInputSeller" class="form-label">Seller</label>
+                                <input type="text" class="form-control" id="exampleInputSeller" aria-describedby="sellersHelp"
+                                name="seller_id" #seller_id="ngModel" [(ngModel)]="vehiculoModel.seller_id">
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="crearvehiculo()">Agregar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+            
+          
+        
           <br/>
-    </div>
+    
     </div>
   </div>
   
   
    
-  
+   <!-- ModalEditar -->
+   <div class="modal fade" id="modalEditarUsuario" tabindex="-1" aria-labelledby="modalEditarUsuario" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEditarUsuario">Editar vehiculo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" >
+          <form>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="exampleInputImage" class="form-label">Imagen URL</label>
+                  <input type="text" class="form-control" id="exampleInputImage" aria-describedby="imagenHelp"
+                  name="image" #image="ngModel" [(ngModel)]="verVehiculoModel.image">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="exampleInputPrice" class="form-label">Price</label>
+                  <input type="text" class="form-control" id="exampleInputPrice" aria-describedby="priceHelp"
+                  name="price" #price="ngModel" [(ngModel)]="verVehiculoModel.price">
+                </div>
+            </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="exampleInputDescription" class="form-label">Descripcion</label>
+                  <input type="text" class="form-control" id="exampleInputDescription" aria-describedby="descriptionHelp"
+                  name="description" #description="ngModel" [(ngModel)]="verVehiculoModel.description">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="exampleInputMofrl" class="form-label">Model</label>
+                  <input type="text" class="form-control" id="exampleInputMofrl" aria-describedby="modelHelp"
+                  name="model.name" #model.name="ngModel" [(ngModel)]="verVehiculoModel.model.name" aria-describedby="emailHelp" disabled>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="exampleInputFuel_type" class="form-label">Fuel_type</label>
+                  <input type="text" class="form-control" id="exampleInputFuel_type" aria-describedby="modelHelp"
+                  name="fuel_type.name" #fuel_type.name="ngModel" [(ngModel)]="verVehiculoModel.fuel_type.name" aria-describedby="emailHelp" disabled>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="exampleInputSeller" class="form-label">Seller</label>
+                  <input type="text" class="form-control" id="exampleInputSeller" aria-describedby="sellersHelp"
+                  name="seller.name" #seller.name="ngModel" [(ngModel)]="verVehiculoModel.seller.name" disabled>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="editarVehiculo()">Actualizar</button>
+        </div>
+      </div>
+    </div>

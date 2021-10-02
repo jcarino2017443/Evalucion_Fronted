@@ -88,7 +88,8 @@ chartInicial:any = 'pie'
       this.chartLabels=[];
       console.log(response)
       this.data = response.sales;
-      let keys = Object.keys(this.data)
+      let keys = Object.keys(this.data);
+
       for (let index = 0; index < keys.length; index++) {
         let clave = keys[index]
         this.chartLabels.push(clave);
@@ -108,7 +109,7 @@ chartInicial:any = 'pie'
     for (let index = 0; index < keys.length; index++) {
       let clave = keys[index]
       this.chartLabels.push(clave);
-      this.chartData.push(this.data[clave]);
+      this.chartData.push(this.data[clave],);
       this.chartColors[0].backgroundColor.push(`#${Math.floor(Math.random()*16777215).toString(16)}`);
       
     }

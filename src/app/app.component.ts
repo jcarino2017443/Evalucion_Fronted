@@ -56,6 +56,5 @@ export class AppComponent implements OnInit, DoCheck{
   }
 
   
-  
 
 }
