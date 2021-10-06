@@ -277,9 +277,14 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                 </div>
               </div>
                 <div class="mb-3">
-                  <label for="InputEmail" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="InputEmail" name="email"
-                  #email="ngModel" [(ngModel)]="usuaioModel.email">
+                  <label for="InputEmail" class="form-label">Password</label>
+                  <input type="email" class="form-control" id="InputEmail" name="password"
+                  #password="ngModel" [(ngModel)]="usuaioModel.password" [ngClass]="{'activo':usuaioModel.password_confirmation === usuaioModel.password}">
+                </div>
+                <div class="mb-3">
+                  <label for="InputEmail" class="form-label">Password_confirmation</label>
+                  <input type="email" class="form-control" id="InputEmail" name="password_confirmation"
+                  #password_confirmation="ngModel" [(ngModel)]="usuaioModel.password_confirmation" [ngClass]="{'false': usuaioModel.password_confirmation != usuaioModel.password, 'activo':usuaioModel.password_confirmation === usuaioModel.password}">
                 </div>
 
               </form>

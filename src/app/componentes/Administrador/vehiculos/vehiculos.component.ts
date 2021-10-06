@@ -1,14 +1,17 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Filtros } from 'src/app/modelos/filtros.modelo';
 import { Rango } from 'src/app/modelos/rangoFiltro.modelo';
 import { Vehiculo } from 'src/app/modelos/vehiculo.modelo';
 import { VehiculosService } from 'src/app/servicios-admin/vehiculos.service';
+import { RegistroService } from 'src/app/servicios/registro.service';
+import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-vehiculos',
   templateUrl: './vehiculos.component.html',
   styleUrls: ['./vehiculos.component.scss'],
-  providers: [VehiculosService]
+  providers: [VehiculosService, RegistroService]
 })
 export class VehiculosComponent implements OnInit {
   public vehiculoModel: Vehiculo;
@@ -20,16 +23,20 @@ export class VehiculosComponent implements OnInit {
   public modelos:any;
   public imagen:any = "https://lumation-communication-suite.s3.us-east-2.amazonaws.com/";
   public spinner:any;
+  public archivo:any = []
+  public previsualizacion:any
   
-  newNumerPage: numeroPage = {numero: 0}
-  constructor(public _vehiculoService: VehiculosService) {
+  newNumerPage: numeroPage = {numero: 0};
+  
+  
+  constructor(public _vehiculoService: VehiculosService, public _registroService: RegistroService, private _sanitizer: DomSanitizer) {
    // this.vehiculoModel = new Vehiculo(0,"","","",0,"",0,0,0,"",false,0,0,0,{model_id:0, name:"", brand:{brand_id:0, name:""}},{fuel_type_id:0, name:""},{seller_id:0, name:"", email:""})
    
    this.vehiculoModel = new Vehiculo(0,"","","","","",0,0,0,"",0,0,0,0,0,{model_id:0,name:"", brand:{brand_id:0, name:""}},{fuel_type_id:0,name:""},{seller_id:0, name:"",email:""});
    this.vehiculoFiltros = new Filtros("","","","","","","");
    this.vehiculoRange = new Rango("","","","","","","","","","");
    this.verVehiculoModel =  new Vehiculo(0,"","","","","",0,0,0,"",0,0,0,0,0,{model_id:0,name:"", brand:{brand_id:0, name:""}},{fuel_type_id:0,name:""},{seller_id:0, name:"",email:""});
-   
+  
   }
 
   ngOnInit(): void {
@@ -355,8 +362,55 @@ export class VehiculosComponent implements OnInit {
       console.log(<any> err)
     })
   }
+  
+  subirAvatar(files:any){
+    var filecapturado = files.target.files[0]
+    this.archivo.push(filecapturado)
+    this.extraerBase64(filecapturado).then((imagen:any)=> {
+      this.previsualizacion = imagen.base
+      
+    })
+    this._vehiculoService.añadirImagen(filecapturado).subscribe(response=>{
+      console.log(response);
+      Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Success',
+          showConfirmButton: false,
+          timer: 2000
+      })
+    },err=>{
+      console.log(err)
+    })
+  }
+
+  extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
+    try {
+      const unsafeImg = window.URL.createObjectURL($event);
+      const image = this._sanitizer.bypassSecurityTrustUrl(unsafeImg);
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () => {
+        resolve({
+          base: reader.result
+        });
+      };
+      reader.onerror = error => {
+        resolve({
+          base: null
+        });
+      };
+
+    } catch (e) {
+      return null;
+    }
+  })
+
+
+
 
 }
 interface numeroPage {
   numero: Number; 
 }
+

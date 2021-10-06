@@ -8,15 +8,16 @@
       </div>
       <div class="col-md-6 px-0" style="padding: 5%; border-radius: 10px;">
         <div class="d-flex justify-content-center">
-          <button style="font-size: 5em; background-color: #70d4d4; border: none"  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <button [disabled]="element !== false" [hidden]="_registroService.getIdentidad().role.name !== 'Vendedor'" style="font-size: 5em; background-color: #70d4d4; border: none"  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             <i style="color: black;" class="bi bi-plus-lg"></i>
           </button>
         </div>
       </div>
       </div>
     </div>
-    <div class="d-grid gap-2 d-md-block">
-        <div class="row">
+    <p style="text-align: center;" [hidden]="length > 0">No tienes ningun vehiculo asignado</p>
+    <div class="d-grid gap-2 d-md-block" >
+        <div class="row" [hidden]="_registroService.getIdentidad().role.name !== 'Administrador'">
           <div class="col-lg-6 col-md-6">
             <form>
               <input class="form-control me-2" type="text" placeholder="comprador_id" aria-label="Search"
@@ -30,7 +31,7 @@
             </form>
           </div>   
         </div>
-        <div class="row">
+        <div class="row" [hidden]="_registroService.getIdentidad().role.name !== 'Administrador'">
             <div class="col-lg-6 col-md-6">
                 <form>
                   <input class="form-control me-2" type="text" placeholder="model_id" aria-label="Search"
@@ -48,7 +49,7 @@
                   </form>
               </div>
         </div>
-        <div class="row">
+        <div class="row" [hidden]="_registroService.getIdentidad().role.name !== 'Administrador'">
             <div class="col-lg-3 col-md-3">
                 <button class="btn btn-outline-success" type="submit" style="margin-top: 10px; width: 100%" (click)="filtros()">Search</button>
             </div>
@@ -63,7 +64,7 @@
             </div>
         </div>
           <hr>
-          <div class="row justify-content-md-center">
+          <div class="row justify-content-md-center" [hidden]="_registroService.getIdentidad().role.name !== 'Administrador'">
             <div class="col-lg-4 col-md-4">
               <div class="d-flex justify-content-center">
                 <div class="dropdown">
@@ -94,8 +95,39 @@
               </div>
             </div>
           </div>
+
+
           <br/>
       </div>
+      <!-- Tablas de vehiculos disponibles -->
+      <table class="table" [hidden]="!length || _registroService.getIdentidad().role.name !== 'Vendedor'">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Año</th>
+            <th scope="col">Color</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let auto of vehiculoList; index as position" [hidden]="auto.sold === true">
+            <th scope="row">{{auto.vehicle_id}}</th>
+            <td>{{auto.model.name}}</td>
+            <td>{{auto.year}}</td>
+            <td>{{auto.color}}</td>
+            <td>{{auto.price.replace(',','').replace(',','').replace('.00', '') | currency:'GTQ' }}</td>
+            <td>{{auto.sold}}</td>
+
+          </tr>
+        </tbody>
+      </table>
+
+      <hr>
+      <br/>
+
+      <!-- registro de ventas -->
     <div class="row justify-content-md-center">
         <div class="col-md-4 col-xs-6 col-sm-6" *ngFor="let venta of ventasList">
             <div class="col-xs-12 col-sm-12">
@@ -119,6 +151,8 @@
             </div>
         </div>
     </div>
+
+
     
 </div>
 
@@ -170,14 +204,14 @@
                 <div class="col-lg-6 col-md-6">
                     <form>
                         <input class="form-control me-2" type="date" aria-label="Search" aria-describedby="fechaini"
-                        name="created_at1" #created_at1="ngModel" [(ngModel)]=ventasFiltros.created_at1 min="2021-01-01">
+                        name="created_at1" #created_at1="ngModel" [(ngModel)]=ventasFiltros.created_at1 min="2021-01-01" [max]="fechaActual">
                         <div id="fechaini" class="form-text" style="text-align: center;">Fecha inicial.</div>
                       </form>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <form>
                         <input class="form-control me-2" type="date" placeholder="fecha final" aria-label="Search" aria-describedby="fechafinal"
-                        name="created_at2" #created_at2="ngModel" [(ngModel)]=ventasFiltros.created_at2 min="2021-01-01">
+                        name="created_at2" #created_at2="ngModel" [(ngModel)]=ventasFiltros.created_at2 min="2021-01-01" [max]="fechaActual">
                         <div id="fechafinal" class="form-text" style="text-align: center;">Fecha final.</div>
 
                       </form>
@@ -192,7 +226,7 @@
     </div>
   </div>
 
-<!-- Modal -->
+<!-- Modal agregar venta-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

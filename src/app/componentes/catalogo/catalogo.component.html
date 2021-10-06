@@ -1,23 +1,105 @@
+
+<div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+  <div class="row">
+    <div class="col-md-6 px-0">
+      <h1 style="text-align: center;" class="display-4 fst-italic">Perfil</h1>
+      <p style="text-align: center;" class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+  </div>
+  
+  </div>
+</div>
 <div class="container">
-  <div class="row row-cols-1 row-cols-md-4 g-4">
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <div class="d-flex justify-content-center" style="height:150px;">
-          <img src="https://assets.entrepreneur.com/images/misc/1464722957_coca_cola_logo.jpg" class="card-img-top" alt="...">
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div>
+  <div class="row">
+    <div class="col-md-4">
+        <img src="../../../assets/person-badge.svg" class="img-fluid" alt="...">
+        <p style="text-align:left">{{_registroService.getIdentidad().email}}</p>
+    </div>
+    
+      <div class="col-md-4" style="margin-top: 20px;">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="floatingInputGrid1" name="name"
+          #name="ngModel" [(ngModel)]=ModelUsuario.name disabled>
+          <label for="floatingInputGrid" >Nombre</label>
         </div>
+        
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInputGrid2"  name="identification"
+            #identification="ngModel" [(ngModel)]="ModelUsuario.identification" disabled>
+            <label for="floatingInputGrid">Identificacion</label>
+          </div>
+        
+      </div>
+      <div class="col-md-4" style="margin-top: 20px;"> 
+        <div class="form-floating">
+          <input type="email" class="form-control" id="floatingInputGrid3"  
+          name="phone_number " #phone_number="ngModel" [(ngModel)]="ModelUsuario.phone_number" disabled>
+          <label for="floatingInputGrid">Telefono</label>
+        </div>
+        
+          <div class="form-floating">
+            <button type="button" class="btn btn-outline-secondary" style="width: 100%; height: 3.5em;" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar Perfil</button>
+          </div>
+        
+      </div>
+    
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal Password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="exampleInputName" class="form-label" style="text-align: center;" >Nombre</label>
+                <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp" name="name"
+                #name="ngModel" [(ngModel)]=ModelUsuario.name>
+                <div id="nameHelp" class="form-text">Escribe tu nuevo nombre.</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="exampleInputId" class="form-label" style="text-align: center;" >Identificacion</label>
+                <input type="text" class="form-control" id="exampleInputId" aria-describedby="idHelp" name="identification"
+                #identification="ngModel" [(ngModel)]="ModelUsuario.identification">
+                <div id="idHelp" class="form-text">Escribe tu nueva identificacion.</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="exampleInputTel" class="form-label" style="text-align: center;" >Telefono</label>
+                <input type="tel" class="form-control" id="exampleInputTel" aria-describedby="telPass" name="phone_number " 
+                #phone_number="ngModel" [(ngModel)]="ModelUsuario.phone_number">
+                <div id="telPass" class="form-text">Escribe tu nuevo telefono.</div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPass" class="form-label" style="text-align: center;" >Password</label>
+            <input type="password" class="form-control" id="exampleInputPass" aria-describedby="passHelp" name="password"
+                #password="ngModel" [(ngModel)]="ModelUsuario.password">
+            <div id="passHelp" class="form-text">Escribe tu contraseña.</div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPass2" class="form-label" aria-describedby="pass2Help" style="text-align: center;">PasswordConfirmation</label>
+            <input type="password" class="form-control" id="exampleInputPass2" [ngClass]="{'false': ModelUsuario.password_confirmation != ModelUsuario.password}" name="password_confirmation"
+            #password_confirmation="ngModel" [(ngModel)]="ModelUsuario.password_confirmation">
+            <div id="pass2Help" class="form-text">Vuelve a escribir tu contraseña.</div>
+
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="EditarPerfil()"> Save changes</button>
       </div>
     </div>
+  </div>
 </div>
-
-</div>
-
-
-
-  

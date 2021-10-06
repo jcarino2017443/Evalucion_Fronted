@@ -1,4 +1,76 @@
 <div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-md-3">
+      <form>
+        <input class="form-control me-2" type="search" placeholder="Locacion" aria-describedby="locacion"
+        name="location" #location="ngModel" [(ngModel)]="vehiculoModel.location">
+        <div id="locacion" class="form-text" style="text-align: center;">Locacion</div>
+      </form>
+    </div>
+    <div class="col-lg-4 col-md-3">
+      <form>
+        <input class="form-control me-2" type="text" placeholder="Color" aria-describedby="color"
+        name="color" #color="ngModel" [(ngModel)]="vehiculoModel.color">
+        <div id="color" class="form-text" style="text-align: center;">Color</div>
+      </form>
+    </div>
+    <div class="col-lg-4 col-md-3">
+      <form>
+        <input class="form-control me-2" type="search" placeholder="Modelo_id" aria-describedby="Modelo_id"
+        name="model_id" #model_id="ngModel" [(ngModel)]="vehiculoModel.model_id">
+        <div id="Modelo_id" class="form-text" style="text-align: center;">Modelo_id</div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-3">
+      <form>
+        <select class="form-select" aria-label="Default select example"  aria-describedby="gas" name="brand_id" #brand_id="ngModel" [(ngModel)]=vehiculoModel.brand_id>
+          <option selected value="">Ninguno</option>
+          <option *ngFor="let brand of marcas" [value]="brand.brand_id">{{brand.name}}</option>
+        </select>
+        <div id="gas" class="form-text" style="text-align: center;">Tipo de Marca</div>
+      </form>
+    </div>
+    <div class="col-lg-4 col-md-3">
+      <form>
+        <select class="form-select" aria-label="Default select example"  aria-describedby="gas" name="fuel_type_id" #fuel_type_id="ngModel" [(ngModel)]=vehiculoModel.fuel_type_id>
+          <option selected value="">Ninguno</option>
+          <option value="1" >Gasolina</option>
+          <option value="2" >Diésel</option>
+          <option value="3" >Híbrido</option>
+        </select>
+        <div id="gas" class="form-text" style="text-align: center;">Tipo de Gasolina</div>
+      </form>
+    </div>
+    <div class="col-lg-4 col-md-3">
+      <form>
+        <input  class="form-control me-2" type="search" placeholder="Seller_id" aria-describedby="seller_id"
+        name="seller_id" #seller_id="ngModel" [(ngModel)]="vehiculoModel.seller_id">
+        <div id="gas" class="form-text" style="text-align: center;">Vendedor_id</div>
+      </form>
+    </div>
+    
+    <hr>
+    <div class="row justify-content-md-center " style="margin-bottom: 10px;">
+      <div class="col-lg-4 col-md-3">  
+        <input [ngClass]="{'active': rangeModel.yearsRange1.length >4 || rangeModel.yearsRange1.length <4, 'hidden':rangeModel.yearsRange1.length ===0}" class="form-control me-2" type="text"   aria-describedby="inicio"
+        name="yearsRange1" #yearsRange1="ngModel" [(ngModel)]="rangeModel.yearsRange1" placeholder="fecha inicial" min="2021">
+        <div id="inicio" [hidden]="rangeModel.yearsRange1.length ===0" *ngIf="rangeModel.yearsRange1.length >4 || rangeModel.yearsRange1.length <4"  class="form-text" style="text-align: center;">Fecha inicial invalida</div>
+      </div>
+      <div class="col-lg-4 col-md-3">  
+        <input [ngClass]="{'active': rangeModel.yearsRange2.length >4 || rangeModel.yearsRange2.length <4, 'hidden':rangeModel.yearsRange2.length ===0}" class="form-control me-2" type="text"  aria-describedby="final"
+        name="yearsRange2" #yearsRange2="ngModel" [(ngModel)]="rangeModel.yearsRange2" placeholder="fecha final" min="2021">
+        <div id="final" [hidden]="rangeModel.yearsRange2.length ===0" *ngIf="rangeModel.yearsRange2.length >4 || rangeModel.yearsRange2.length <4 " class="form-text" style="text-align: center;">Fecha final invalida</div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-outline-success" type="submit" style="margin-top: 10px;" (click)="filtroVehiculoPublico()">Search</button>
+  <button class="btn btn-outline-success" type="submit" style="margin-top: 10px;" (click)="mostrarVehiculos()">Resetear</button>
+
+</div>
+
+    <hr>
   <div class="d-flex justify-content-center" >
     <div class="spinner-border" role="status" [hidden]="estado> 0" >
       <span class="visually-hidden">Loading...</span>
@@ -24,52 +96,17 @@
     </div>
 </div>
 
+
+<!-- <form>
+  <input class="form-control me-2" type="search" placeholder="Modelo_id" aria-label="Search"
+  name="model_id" #model_id="ngModel" [(ngModel)]="vehiculoModel.model_id">
+</form>
 </div>
-
-
- 
-
-
-  <!-- <div class="row">
-    <div class="col-xs-12 col-sm-4" *ngFor="let auto of vehiculoList">
-      <div class="card mb-3" style="max-width: 540px; border-color:1px black;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img style="padding-top: 80%; padding-left: 10px;" class="user-image" src="{{auto.image}}" class="img-fluid rounded-start">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body" >
-              <h5 class="card-title"> <strong>{{auto.model.name}}</strong></h5>
-              <p class="card-text">locacion: {{auto.location}}</p>
-              <p class="card-text">año: {{auto.year}}</p>
-              <p class="card-text">color: {{auto.color}}</p>
-              <p class="card-text">Model: {{auto.model.brand.name}}</p>
-
-              <button style="background-color: white; color: black;" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                caracteristicas
-              </button>
-               
-               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Informacion del vehiculo</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" >
-                      <p class="card-text">{{auto.description}}</p>
-                      <p class="card-text">{{auto.model.brand.name}}</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-        <br/>
-  </div>
-  </div> -->
+<div class="col-lg-4 col-md-3">
+<form>
+  <select class="form-select" aria-label="Default select example"  aria-describedby="gas" name="color" #color="ngModel" [(ngModel)]=vehiculoModel.color>
+    <option selected value="">Ninguno</option>
+    <option value=""></option>
+  </select>
+  <div id="gas" class="form-text" style="text-align: center;">Tipo de Gasolina</div>
+</form> -->

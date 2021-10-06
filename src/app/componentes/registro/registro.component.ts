@@ -35,15 +35,76 @@ export class RegistroComponent implements OnInit {
     })
     this._router.navigate(['/login'])
     
-    }, (error)=>{
-      console.log(<any>error.error.errors)
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: error.error.errors,
-        showConfirmButton: false,
-        timer: 1500
-      })
+    }, (err)=>{
+      console.log(<any>err.error.errors)
+      var password1:String= err.error.errors.password;
+      var email:String= err.error.errors.email;
+      var name:String= err.error.errors.name;
+      var numero: String= err.error.errors.phone_number;
+      var identidad:String= err.error.errors.identification
+
+      var mostrar:any
+
+      if(name){
+        mostrar  = ' *' + name; 
+      }else{
+        name =''
+      }
+
+      if(email){
+        if(name){
+          mostrar =  mostrar + ' *'+ email;
+        }else{
+          mostrar = email
+        }
+      }else{
+        email = ''
+      }
+
+      if(numero){
+        if(name || email){
+          mostrar = mostrar + ' *'+numero ;
+        }else{
+          mostrar = numero
+        }
+      }else{
+        numero = ''
+      }
+
+      if(identidad){
+        if (name || email || numero) {
+          mostrar = mostrar + ' *'+ identidad
+        }else{
+          mostrar = identidad;
+        }
+      }else{
+        identidad = ''
+      }
+      
+
+      console.log(mostrar)
+      // if(password1[0] || password1[1] || password1[2]){
+      //   mostrar = password1[0] || password1[1] || password1[2];
+      // }
+
+      if(this.usuarioModel.password != this.usuarioModel.password_confirmation){
+        mostrar = password1;
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: mostrar,
+          showConfirmButton: false,
+          timer: 10000
+        })
+      }
+  
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: mostrar,
+          showConfirmButton: false,
+          timer: 10000
+        })
     })
   }
 }

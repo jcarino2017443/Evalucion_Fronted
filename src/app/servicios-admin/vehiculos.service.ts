@@ -88,4 +88,20 @@ export class VehiculosService {
     return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/models', {headers: headersVariable})
    }
 
+   añadirImagen(imagen:any): Observable<any>{
+    
+    
+     const formData = new FormData();
+     formData.append('image' , imagen)
+     var filesHttpOptions = {
+
+      headers: new HttpHeaders({
+          Authorization: 'Bearer ' + localStorage.getItem('Token'),
+
+      }).set("Access-Control-Allow-Origin", "*")
+      }
+     let headersVariable = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + localStorage.getItem('Token')).set("Access-Control-Allow-Origin", "*");
+    return this._http.post(this.ruta + 'demo-api.lumationsuite.com/index.php/api/uploads', formData, filesHttpOptions)
+   }
+
 }

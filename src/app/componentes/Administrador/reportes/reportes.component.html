@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+        <div class="row">
+          <div class="col-md-6 px-0">
+            <h1 style="text-align: center;" class="display-4 fst-italic">Reportes</h1>
+            <p style="text-align: center;" class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+        </div>
+        <div class="col-md-6 px-0" style="padding: 5%; border-radius: 10px;">
+          <div class="d-flex justify-content-center">
+            <i style="font-size: 6em;" class="bi bi-clipboard-check"></i>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+            <div class="d-flex justify-content-center">
+                <button class="button" (click)="reportesExcel()">Ver reportes</button>
+              </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex justify-content-center">
+                <button class="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Por Fechas</button>
+              </div>
+        </div>
+      </div>
+      
+</div>
+
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Por rango de fechas</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <form>
+                        <input class="form-control me-2" type="date" aria-label="Search" aria-describedby="fechaini"
+                        name="created_at1" #created_at1="ngModel" [(ngModel)]=ventasFecha.created_at1 min="2021-01-01" [max]="fechaActual">
+                        <div id="fechaini" class="form-text" style="text-align: center;">Fecha inicial.</div>
+                      </form>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <form>
+                        <input class="form-control me-2" type="date" placeholder="fecha final" aria-label="Search" aria-describedby="fechafinal"
+                        name="created_at2" #created_at2="ngModel" [(ngModel)]=ventasFecha.created_at2 min="2021-01-01" [max]="fechaActual">
+                        <div id="fechafinal" class="form-text" style="text-align: center;">Fecha final.</div>
+
+                      </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="reporteFechas()">Ver reportes</button>
+        </div>
+      </div>
+    </div>
+  </div>

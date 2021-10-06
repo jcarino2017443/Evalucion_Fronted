@@ -32,12 +32,13 @@
                     </div>
                     <div class="col-md-6">
                       <label for="exampleInputSelect">Rol</label>
-                      <div *ngIf="_registroService.getIdentidad()== null || _registroService.getIdentidad().role.name === 'Vendedor' ">
+                      
                         <select class="form-select" id="exampleInputSelect" aria-label="Default select example" name="role_id" #role_id="ngModel" [(ngModel)]="usuarioModel.role_id" >
                           <option disabled>Elija una opcion</option>
                           <option value="3">3 | Comprador</option>
+                          <option [hidden]="_registroService.getIdentidad() == null" value="3">3 | Vendedor</option>
                         </select>
-                      </div>
+                      
                       <!-- <div *ngIf="_registroService.getIdentidad().role.name === 'Administrador'">
                         <select class="form-select" id="exampleInputSelect" aria-label="Default select example" name="role_id" #role_id="ngModel" [(ngModel)]="usuarioModel.role_id" >
                           <option disabled>Elija una opcion</option>
@@ -65,7 +66,7 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">Confirmacion Password</label>
                     <input type="password" class="form-control" id="exampleInputPassword2" placeholder="password_confirmation"
-                    name="password_confirmation" #password_confirmation="ngModel" [(ngModel)]="usuarioModel.password_confirmation">
+                    name="password_confirmation" #password_confirmation="ngModel" [(ngModel)]="usuarioModel.password_confirmation" [ngClass]="{'false': usuarioModel.password_confirmation != usuarioModel.password}">
                   </div>
               
                 <button type="submit" class="btn btn-primary" (click)="registrar()">Registrarse</button>

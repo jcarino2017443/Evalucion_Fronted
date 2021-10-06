@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 
 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -57,13 +58,7 @@ export class LoginComponent implements OnInit {
     this._registroService.login(this.usuarioModel).subscribe(response=>{
       this.token = response.access_token;
       localStorage.setItem('Token',this.token);
-          this._registroService.obtenerUsuario().subscribe(response=>{
-          console.log(response.data)
-          this.identidad = response.data;
-          localStorage.setItem('identidad', JSON.stringify(this.identidad))
-        }, error=>{
-          console.log(<any>error)
-        })
+      this.usuario();
       Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -71,8 +66,11 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
       })
-      this._router.navigate(['/login'])
-      // setTimeout(()=>{this.redirigir()},3000)
+      
+      setInterval(() => {
+        this.redirigir()
+      }, 3000);
+      
     },
     error=>{
       console.log(<any>error);
@@ -92,7 +90,7 @@ export class LoginComponent implements OnInit {
       console.log(response.data)
       this.identidad = response.data;
       localStorage.setItem('identidad', JSON.stringify(this.identidad));
-      window.location.reload();
+      
       
     }, error=>{
       console.log(<any>error)
@@ -101,15 +99,20 @@ export class LoginComponent implements OnInit {
 
   redirigir(){
     
-      let paginaRol = this._registroService.getIdentidad();
-      switch (paginaRol.role.role_id) {
+      let paginaRol = this._registroService.getIdentidad().role.role_id;
+      switch (paginaRol) {
         case 1:
           this._router.navigate(['/panelAdmin']);
+          setInterval(() => {
+            window.location.reload();
+          }, 2000);
           break;
         case 2:
           this._router.navigate(['/catalogo'])
           break;
       }
+      
+      
      
   }
 

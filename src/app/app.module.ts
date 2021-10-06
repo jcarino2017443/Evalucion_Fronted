@@ -23,6 +23,7 @@ import { RegistroService } from './servicios/registro.service';
 import { RestrinccionService } from './servicios/restrinccion.service';
 import { EstadisticasComponent } from './componentes/Administrador/estadisticas/estadisticas.component';
 import { VentasComponent } from './componentes/Administrador/ventas/ventas.component';
+import { ReportesComponent } from './componentes/Administrador/reportes/reportes.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { VentasComponent } from './componentes/Administrador/ventas/ventas.compo
          UsuariosComponent,
          VehiculosComponent,
          EstadisticasComponent,
-         VentasComponent
+         VentasComponent,
+         ReportesComponent
   ],
   imports: [
     BrowserModule,

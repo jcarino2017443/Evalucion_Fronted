@@ -36,7 +36,8 @@ export class AppComponent implements OnInit, DoCheck{
   
 
   Logout(){
-    localStorage.clear()
+    this._registreService.cerrarSesion().subscribe(response=>{
+      localStorage.clear()
     this.token = null;
     this._router.navigate(['/login'])  
      Swal.fire({
@@ -52,6 +53,8 @@ export class AppComponent implements OnInit, DoCheck{
       `
      })
     window.location.reload;
+    })
+    
     
   }
 

@@ -45,19 +45,30 @@ export class UsuariosComponent implements OnInit {
       console.log(response.data)
       Swal.fire({
         position: 'top-end',
-          icon: 'success',
-          title: 'Usuario creado',
-          showConfirmButton: false,
-          timer: 2000
+        icon: 'success',
+        title: 'Usuario creado',
+        showConfirmButton: false,
+        timer: 2000
       })
     },error=>{
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: error.error.errors,
-        showConfirmButton: false,
-        timer: 4000
-    })
+      var password1:String= error.error.errors.password;
+      
+      var mostrar:any
+      if(password1[0] || password1[1] || password1[2]){
+        mostrar = password1[0] || password1[1] || password1[2];
+      }
+
+      if(this.usuaioModel.password != this.usuaioModel.password_confirmation){
+        mostrar = password1;
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: mostrar,
+          showConfirmButton: false,
+          timer: 10000
+        })
+
+      }
     })
   }
   editarUsuario(){
@@ -71,6 +82,25 @@ export class UsuariosComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
       })
+    }, err=>{
+      var password1:String= err.error.errors.password;
+      
+      var mostrar:any
+      if(password1[0] || password1[1] || password1[2]){
+        mostrar = password1[0] || password1[1] || password1[2];
+      }
+
+      if(this.usuaioModel.password != this.usuaioModel.password_confirmation){
+        mostrar = password1;
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: mostrar,
+          showConfirmButton: false,
+          timer: 10000
+        })
+
+      }
     })
   }
 

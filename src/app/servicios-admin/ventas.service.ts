@@ -43,4 +43,8 @@ export class VentasService {
      let headersVariable = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
      return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/sales?'+ created + amount, {headers: headersVariable} )
    }
+   vehiculosAsignado():Observable<any>{
+     let headersVariable = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + localStorage.getItem('Token'));
+     return this._http.get(this.ruta + 'demo-api.lumationsuite.com/index.php/api/vehicles', {headers: headersVariable})
+   }
 }

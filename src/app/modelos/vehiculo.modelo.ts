@@ -1,7 +1,7 @@
 export class Vehiculo {
     constructor(
         public vehicle_id:Number,
-        public image: string,
+        public image: String,
         public year: String,
         public color: String,
         public price: String,

@@ -1,20 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { Ventas } from 'src/app/modelos/ventas.modelo';
 import { VentasService } from 'src/app/servicios-admin/ventas.service';
+import { RegistroService } from 'src/app/servicios/registro.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ventas',
   templateUrl: './ventas.component.html',
   styleUrls: ['./ventas.component.scss'],
-  providers: [VentasService]
+  providers: [VentasService, RegistroService]
 })
 export class VentasComponent implements OnInit {
   public marcas:any
   public ventasFiltros:Ventas;
   public ventasModel:Ventas
+  public vehiculoAsig:any
+  public estado:any;
+  public element:any;
+  public fechaActual:any;
+  
 
-  constructor(private _ventasService: VentasService) {
+  // variable vendedor
+  public length:any
+  public vehiculoList:any
+
+  constructor(private _ventasService: VentasService, public _registroService:RegistroService) {
     this.ventasFiltros = new Ventas("","","","","","","","","");
     this.ventasModel = new Ventas ("","","","","","","","","")
    }
@@ -22,9 +32,12 @@ export class VentasComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerVentasAdmin();
     this.obtenerMarcasCount();
+    this.vehiculosAsinado();
+    this.saberFecha();
   }
 
   registrarVentas(){
+    
     this._ventasService.registrarVenta(this.ventasModel).subscribe(response=>{
       Swal.fire({
         position: 'center',
@@ -33,15 +46,47 @@ export class VentasComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
       })
+      this.ventasModel.vehicle_id = "";
+      this.ventasModel.buyer_id = "";
+      this.obtenerVentasAdmin();
     }, err=>{
+      var vehiculo = err.error.errors.vehicle_id;
+      var buyer =  err.error.errors.buyer_id
+      var mostrar:any
+      if(vehiculo && buyer){
+        mostrar = buyer +" y "+ vehiculo;
+      }
+      if(!buyer && vehiculo){
+        mostrar = vehiculo;
+      }
+      if(buyer && !vehiculo){
+        mostrar = buyer;
+      }
+      
+
       Swal.fire({
         position: 'center',
           icon: 'error',
-          title: err.error.errors,
+          title: mostrar,
           showConfirmButton: false,
-          timer: 2000
+          timer: 4000
       })
       console.log(<any>err)
+    })
+  }
+
+  vehiculosAsinado(){
+    this._ventasService.vehiculosAsignado().subscribe(reponse=>{
+      console.log(reponse.data);
+      this.length = reponse.data.length;
+      this.vehiculoList = reponse.data;
+      this.estado = reponse.data
+      
+      for (let index = 0; index < this.estado.length; index++) {
+        this.element = this.estado[index].sold;
+        console.log(this.element)
+      }
+
     })
   }
 
@@ -116,7 +161,7 @@ export class VentasComponent implements OnInit {
       console.log(<any> err);
     })
 
-    }
+  }
 
 
   rangos(){
@@ -145,6 +190,8 @@ export class VentasComponent implements OnInit {
             timer: 2000
         })
         this.ventasList = response.data;
+        this.ventasFiltros.created_at1 = "";
+        this.ventasFiltros.created_at2 = "";
       }else{
         Swal.fire({
           position: 'center',
@@ -154,6 +201,8 @@ export class VentasComponent implements OnInit {
             timer: 2000
         })
         this.ventasList = response.data
+        this.ventasFiltros.created_at1 = "";
+        this.ventasFiltros.created_at2 = "";
       }
       
     },err=>{
@@ -175,5 +224,25 @@ export class VentasComponent implements OnInit {
       }
     })
   }
+
+  saberFecha(){
+    
+    var today:any = new Date();
+    var dd:any = today.getDate();
+    var mm:any = today.getMonth() + 1; //January is 0!
+    var aaaa:any = today.getFullYear();
+    
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+    
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+    
+    today = aaaa + '-' + mm + '-' + dd;
+    this.fechaActual = today;
+      
+      }
     
 }

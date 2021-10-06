@@ -10,9 +10,9 @@
                     <h1>{{title}}</h1>
                     <p>Los mejores vehiculos en la mejor pagina web</p>
                     <p>
-                        <a href="" class="btn btn-success btn-lg" role="button">Login</a>
-                        <a href="" class="btn btn-primary btn-lg" role="button">Timeline</a>
-                        <a href="" class="btn btn-default btn-lg" role="button">Gente</a>
+                        <a class="btn btn-success btn-lg" role="button" data-bs-toggle="modal" data-bs-target="#marca">Marcas</a>
+                        <a class="btn btn-primary btn-lg" role="button" data-bs-toggle="modal" data-bs-target="#modelos">Modelos</a>
+                        <a class="btn btn-default btn-lg" role="button" data-bs-toggle="modal" data-bs-target="#combustible">Combustible</a>
             
                     </p>
                 </div>
@@ -20,7 +20,86 @@
        
     
     </div>
+</div>
 
+<!-- Modal Marca -->
+<div class="modal fade" id="marca" tabindex="-1" aria-labelledby="marca" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="marca">Marcas</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-group">
+            <li class="list-group-item">Listado de las marcas disponibles</li>
+          
+            <li class="list-group-item list-group-item-primary" *ngFor="let brand of marcas; index as position">{{position+1}}-{{brand.name}}</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Modelo -->
+<div class="modal fade" id="modelos" tabindex="-1" aria-labelledby="modelos" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modelos">Modelos</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-group">
+            <li class="list-group-item">Listado de las modelos disponibles. total:{{length}}</li>
+          
+            <li class="list-group-item list-group-item-primary" *ngFor="let model of modelos; index as position">{{model.model_id}}. <Strong style="text-align: center;">{{model.name}}</Strong> </li>
+          </ul>
+          <div class="d-flex justify-content-center">
+            <nav style="margin-top: 6px;" aria-label="...">
+              <ul class="pagination">
+                <li class="page-item" *ngFor="let url of pagination" [hidden]="url.url === null" [ngClass]="{'active': url.active}" >
+                  <a class="page-link"  (click)="getModelos(url.url)" >{{url.label.replace('raquo;','').replace('laquo;','').replace('&','')}}</a>
+                </li>
+                
+                
+              </ul>
+            </nav>
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Combustible -->
+<div class="modal fade" id="combustible" tabindex="-1" aria-labelledby="combustible" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="combustible">Combustible</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-group">
+            <li class="list-group-item">listado de los Combustibles disponibles</li>
+          
+            <li class="list-group-item list-group-item-primary" *ngFor="let combus of combustible; index as position">{{position+1}}-{{combus.name}}</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 <app-vehiculo-publico></app-vehiculo-publico>

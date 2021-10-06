@@ -36,8 +36,10 @@ export class RegistroService {
    }
 
    cerrarSesion():Observable<any>{
+     var post:any
+     let params =  JSON.stringify(post);
      let headersToken = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' +  this.getToken())
-     return this._http.post(this.ruta + 'demo-api.lumationsuite.com/index.php/api/logout', {headers: headersToken})
+     return this._http.post(this.ruta + 'demo-api.lumationsuite.com/index.php/api/logout', params, {headers: headersToken})
    }
    obtenerUsuario():Observable<any>{
      let headersToken = new HttpHeaders().set('Content-Type', 'application/json').append('Authorization', 'Bearer ' + this.getToken())
