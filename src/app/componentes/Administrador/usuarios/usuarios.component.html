@@ -19,7 +19,7 @@
                 <div class="col-lg-4 col-md-3">
                   <form>
                     <select class="form-select" aria-label="Default select example" name="role_id" #role_id="ngModel" [(ngModel)]="buscarDato.role_id" >
-                      <option disabled>Elija una opcion</option>
+                    
                       <option selected value="">Ninguno</option>
                       <option value="2">Vendedor</option>
                       <option value="3">Comprador</option>
@@ -32,7 +32,7 @@
 
                 <hr>
                 <div class="d-flex justify-content-center">
-                  <button  style="background-color: #70d4d4; border: none; width: 50%;" data-bs-toggle="modal" data-bs-target="#modalAgregarUsuario" class="btn btn-primary" type="button"><i class="bi bi-plus-square"></i></button>
+                  <button [hidden]="!largo"  style="background-color: #70d4d4; border: none; width: 50%;" data-bs-toggle="modal" data-bs-target="#modalAgregarUsuario" class="btn btn-primary" type="button"><i class="bi bi-plus-square"></i></button>
                 </div>
                 <br/>
             </div>
@@ -117,10 +117,11 @@
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <select class="form-select" aria-label="Default select example" name="role_id"
+                    <label for="InputRol" class="form-label">Rol</label>
+                    <select class="form-select" id="InputRol" aria-label="Default select example" name="role_id"
                     #role_id="ngModel" [(ngModel)]="crearUsuario.role_id">
                       <option disabled>Elija una opcion</option>
-                      <option value="2">2 | Vendedor</option>
+                      <option value="2" >2 | Vendedor</option>
                       <option value="3">3 | Comprador</option>
                     </select>
                   </div>
@@ -157,7 +158,7 @@
                 <div class="mb-3">
                   <label for="InputPasswordConfirmation" class="form-label">Password Confirmation</label>
                   <input type="text" class="form-control" id="InputPasswordConfirmation" name="password_confirmation"
-                  #password_confirmation="ngModel" [(ngModel)]="crearUsuario.password_confirmation">
+                  #password_confirmation="ngModel" [(ngModel)]="crearUsuario.password_confirmation" [ngClass]="{'false': crearUsuario.password_confirmation != crearUsuario.password}">
                 </div>
               </form>
         </div>
@@ -253,8 +254,8 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                   </div>
                   <div class="col-md-6">
                     <div class="mb-3">
-                      <label for="InputRole_name" class="form-label">Rol</label>
-                      <input type="text" class="form-control" id="InputRole_name" name="role_name"
+                      <label for="InputRole_Rol" class="form-label">Rol</label>
+                      <input type="text" class="form-control" id="InputRole_Rol" name="role_name"
                       #role_name="ngModel" [(ngModel)]="usuaioModel.role.name" disabled >
                     </div>
                   </div>

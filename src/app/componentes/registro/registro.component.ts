@@ -80,13 +80,21 @@ export class RegistroComponent implements OnInit {
       }else{
         identidad = ''
       }
-      
+
+      if(password1){
+        if( name || email || numero || identidad){
+          mostrar = mostrar + ' *'+ password1;
+        }else{
+          mostrar = password1[0].replace('The password must contain at least one uppercase and one lowercase letter.','La contraseña debe contener al menos una letra mayúscula y una minúscula.')
+                             .replace('The password must contain at least one symbol.','debe contener al menos un símbolo.')
+                             .replace('The password must contain at least one number.','debe contener al menos un número');
+        }
+      }else{
+        password1 = '';
+      }
 
       console.log(mostrar)
-      // if(password1[0] || password1[1] || password1[2]){
-      //   mostrar = password1[0] || password1[1] || password1[2];
-      // }
-
+  
       if(this.usuarioModel.password != this.usuarioModel.password_confirmation){
         mostrar = password1;
         Swal.fire({

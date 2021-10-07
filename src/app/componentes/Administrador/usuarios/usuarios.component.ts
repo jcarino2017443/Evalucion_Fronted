@@ -50,16 +50,73 @@ export class UsuariosComponent implements OnInit {
         showConfirmButton: false,
         timer: 2000
       })
-    },error=>{
-      var password1:String= error.error.errors.password;
+    },err=>{
+      var password1:String= err.error.errors.password;
+      var email:String= err.error.errors.email;
+      var role_id:String= err.error.errors.role_id;
+      var name:String= err.error.errors.name;
+      var numero: String= err.error.errors.phone_number;
+      var identidad:String= err.error.errors.identification;
       
       var mostrar:any
-      if(password1[0] || password1[1] || password1[2]){
-        mostrar = password1[0] || password1[1] || password1[2];
+      if(name){
+        mostrar  = ' *' + name; 
+      }else{
+        name =''
       }
 
-      if(this.usuaioModel.password != this.usuaioModel.password_confirmation){
-        mostrar = password1;
+      if(email){
+        if(name){
+          mostrar =  mostrar + ' *'+ email;
+        }else{
+          mostrar = email
+        }
+      }else{
+        email = ''
+      }
+
+      if(role_id){
+        if(name && email){
+          mostrar = mostrar + ' *'+ role_id;
+        }else{
+          mostrar = role_id
+        }
+      }else{
+        role_id = ''
+      }
+
+      if(numero){
+        if(name || email){
+          mostrar = mostrar + ' *'+numero ;
+        }else{
+          mostrar = numero
+        }
+      }else{
+        numero = ''
+      }
+
+      if(identidad){
+        if (name || email || numero) {
+          mostrar = mostrar + ' *'+ identidad
+        }else{
+          mostrar = identidad;
+        }
+      }else{
+        identidad = ''
+      }
+
+      if(password1){
+        if( name || email || numero || identidad){
+          mostrar = mostrar + ' *'+ password1;
+        }else{
+          mostrar = password1[0].replace('The password must contain at least one uppercase and one lowercase letter.','La contraseña debe contener al menos una letra mayúscula y una minúscula.')
+                                .replace('The password must contain at least one symbol.','debe contener al menos un símbolo.')
+                                .replace('The password must contain at least one number.','debe contener al menos un número');
+        }
+      }else{
+        password1 = '';
+      }
+
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -68,7 +125,7 @@ export class UsuariosComponent implements OnInit {
           timer: 10000
         })
 
-      }
+      
     })
   }
   editarUsuario(){

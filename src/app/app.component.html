@@ -22,9 +22,7 @@
       </ul>
         <ng-template #avaliable>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="#" [routerLinkActive]="['active']">Catalogo</a>
-            </li>
+            
             <li class="nav-item">
               <a class="nav-link"  routerLink="/panelAdmin" [routerLinkActive]="['active']">Panel de control</a>
             </li>
@@ -36,8 +34,8 @@
                  {{_registreService.getIdentidad().role.name}}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Hogar</a></li>
-                  <li><a class="dropdown-item" routerLink="/registro">Registro</a></li>
+                  <li><a class="dropdown-item" >Hogar</a></li>
+                  <li><a class="dropdown-item" [hidden]="_registreService.getIdentidad().role.name !== 'Administrador'" routerLink="/registro">Registro</a></li>
                   <li><a class="dropdown-item" (click)="Logout()">logout</a></li>
                 </ul>
               </li>

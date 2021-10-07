@@ -66,17 +66,36 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
       })
-      
-      setInterval(() => {
-        this.redirigir()
-      }, 3000);
+      this.redirigir();
+      // setInterval(() => {
+      //   this.redirigir()
+      // }, 3000);
       
     },
     error=>{
       console.log(<any>error);
-      var mensahe:any = JSON.stringify(error.error.errors); 
+      var email = error.error.errors.email;
+      var password1:String= error.error.errors.password;
+      var mensahe:any;
+
+      if(email){
+        mensahe = email;
+      }else{
+        email = ''
+      }
+      
+      if(password1){
+        if(email){
+          mensahe = mensahe + ' *'+ password1
+        }else{
+          mensahe = password1
+        }
+      }else{
+        password1 = ''
+      }
+
       Swal.fire({
-          position: 'top-end',
+          position: 'center',
           icon: 'error',
           title: mensahe,
           showConfirmButton: false,
@@ -98,21 +117,11 @@ export class LoginComponent implements OnInit {
   }
 
   redirigir(){
-    
-      let paginaRol = this._registroService.getIdentidad().role.role_id;
-      switch (paginaRol) {
-        case 1:
-          this._router.navigate(['/panelAdmin']);
-          setInterval(() => {
-            window.location.reload();
-          }, 2000);
-          break;
-        case 2:
-          this._router.navigate(['/catalogo'])
-          break;
-      }
+ 
+      this._router.navigate(['/panelAdmin'])
+      setInterval(()=>{window.location.reload()},2000)
       
-      
+
      
   }
 
